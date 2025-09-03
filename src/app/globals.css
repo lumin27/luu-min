@@ -1,42 +1,260 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
+/* Professional Developer Portfolio Design System */
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Modern Professional Theme */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 213 27.8% 84.3%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220.9 39.3% 11%;
+
+    --radius: 0.75rem;
+
+    /* Custom Portfolio Colors */
+    --electric-blue: 217 91% 60%;
+    --electric-blue-light: 217 91% 85%;
+    --navy-deep: 220 39% 11%;
+    --navy-light: 220 39% 25%;
+    --gradient-start: 217 91% 60%;
+    --gradient-end: 261 73% 65%;
+    --glass-bg: 220 39% 11% / 0.1;
+    --glow-color: 217 91% 60% / 0.3;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--gradient-start)),
+      hsl(var(--gradient-end))
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--navy-deep)),
+      hsl(var(--navy-light))
+    );
+    --gradient-glow: radial-gradient(
+      600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+      hsl(var(--glow-color)),
+      transparent 40%
+    );
+
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -5px hsl(var(--navy-deep) / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--electric-blue) / 0.2);
+    --shadow-card: 0 4px 6px -1px hsl(var(--navy-deep) / 0.1),
+      0 2px 4px -2px hsl(var(--navy-deep) / 0.1);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme Professional */
+    --background: 220 39% 11%;
+    --foreground: 210 20% 98%;
+
+    --card: 220 39% 15%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 39% 15%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 220 39% 11%;
+
+    --secondary: 220 39% 25%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 39% 20%;
+    --muted-foreground: 220 14% 71%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 220 39% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 39% 25%;
+    --input: 220 39% 25%;
+    --ring: 217 91% 60%;
+
+    /* Dark Custom Colors */
+    --glass-bg: 210 20% 98% / 0.05;
+    --glow-color: 217 91% 60% / 0.4;
+    --shadow-elegant: 0 10px 30px -5px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--electric-blue) / 0.3);
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.2),
+      0 2px 4px -2px hsl(0 0% 0% / 0.1);
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Portfolio Animation Keyframes */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: hsl(var(--primary));
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px hsl(var(--electric-blue) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--electric-blue) / 0.6);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Portfolio Utility Classes */
+@layer components {
+  .hero-gradient {
+    background: var(--gradient-primary);
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .glass-card {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-hover {
+    transition: var(--transition-smooth);
+  }
+
+  .glow-hover:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .typing-text {
+    overflow: hidden;
+    border-right: 3px solid hsl(var(--primary));
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
   }
 }
