@@ -55,7 +55,7 @@ const Projects = () => {
       title: "EduTrack",
       subtitle: "School Dashboard System",
       description:
-        "A robust all-in-one school dashboard platform with attendance tracking, communication, and performance monitoring for students, teachers, and admins.",
+        "A modern platform for schools to manage attendance, schedules, assignments, announcements, messaging, and financial records. Features an intuitive dashboard with real-time events, updates, and transaction tracking for seamless administration.",
       subdescription:
         "Built with Next.js, Appwrite, Twilio, Sentry; efficient, scalable, user-centered. Admin login: username admin12345, password admin",
       liveUrl: "https://edutrack.lumin27.com/",

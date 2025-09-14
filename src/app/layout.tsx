@@ -1,7 +1,7 @@
 import "./globals.css";
 import ClientProviders from "@/components/ClientProviders";
 export const metadata = {
-  title: "Luu Min - Full Web Developer",
+  title: "Luu Min - Full Stack Web Developer",
   description: "Professional Portfolio",
 };
 

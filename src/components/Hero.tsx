@@ -56,7 +56,7 @@ const Hero = () => {
           className={`transition-all duration-1000 ${
             isVisible ? "animate-fade-in" : "opacity-0"
           }`}>
-          <div className='flex flex-col lg:flex-row items-center justify-center px-4 sm:px-6 lg:px-8 gap-10'>
+          <div className='flex flex-col lg:flex-row items-center justify-center px-4 sm:px-6 lg:px-8 gap-8 lg:gap-10'>
             {/* Photo Left */}
             <div className='flex-shrink-0 w-48 lg:w-[300px] h-50 lg:h-[400px] rounded-[50%/40%] lg:mb-10 overflow-hidden border-4 border-primary shadow-xl transform transition-transform duration-300 hover:scale-105'>
               <img
@@ -71,7 +71,7 @@ const Hero = () => {
               <p className='text-lg text-muted-foreground mb-4 animate-slide-up'>
                 Hello,
               </p>
-              <div className='flex flex-row items-center md:items-start justify-center md:justify-start gap-2 md:gap-4'>
+              <div className='flex flex-row md:items-center justify-center sm:justify-center md:justify-center lg:justify-start gap-2 md:gap-4'>
                 <h1 className='text-3xl md:text-5xl font-bold bg-gradient-to-r from-foreground via-primary to-electric-blue bg-clip-text text-transparent animate-scale-in'>
                   I'm
                 </h1>
@@ -80,19 +80,19 @@ const Hero = () => {
                 </h1>
               </div>
 
-              <div className='text-2xl md:text-4xl font-semibold text-muted-foreground mb-8 h-16 flex items-center justify-center lg:justify-start'>
+              <div className='text-2xl md:text-4xl font-semibold text-muted-foreground mb-4 h-16 flex items-center justify-center lg:justify-start'>
                 <span className='border-r-2 border-primary animate-blink pr-1'>
                   {displayedText}
                 </span>
               </div>
 
-              <p className='text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed animate-fade-in'>
+              <p className='text-lg md:text-xl text-muted-foreground max-w-2xl md:mb-12 mb-8 leading-relaxed animate-fade-in'>
                 Passionate about creating beautiful, functional web applications
                 with modern technologies. Specializing in React, Next.js, and
                 full-stack development.
               </p>
 
-              <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-16 animate-slide-up'>
+              <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start md:mb-16 mb-10  animate-slide-up'>
                 <Button
                   size='lg'
                   onClick={scrollToProjects}
