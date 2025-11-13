@@ -18,6 +18,7 @@ import {
   SiMui,
   SiCloudinary,
   SiGithub,
+  SiSupabase,
 } from "react-icons/si";
 
 const About = () => {
@@ -72,8 +73,8 @@ const About = () => {
       icon: <SiCloudinary className='h-10 w-10 text-orange-500' />,
     },
     {
-      name: "Vercel",
-      icon: <SiVercel className='h-10 w-10 text-black dark:text-white' />,
+      name: "Supabase",
+      icon: <SiSupabase className='h-10 w-10 text-green-500' />,
     },
     {
       name: "Git",
@@ -91,6 +92,7 @@ const About = () => {
     "Material-UI",
     "Cloudinary",
     "Server Actions",
+    "Supabase",
     "Git",
   ];
 

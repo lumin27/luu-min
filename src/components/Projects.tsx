@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLinkIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { title } from "process";
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,6 +44,7 @@ const Projects = () => {
       tags: [
         "Next.js",
         "React.js",
+        "Node.js",
         "Material UI",
         "TypeScript",
         "Prisma",
@@ -63,10 +65,34 @@ const Projects = () => {
       tags: [
         "Next.js",
         "React.js",
+        "Appwrite",
         "TailwindCSS",
         "TypeScript",
         "Prisma",
         "PostgreSQL",
+      ],
+      featured: true,
+    },
+    {
+      id: 4,
+      title: "Marketplace",
+      subtitle: "Buy and Sell Marketplace",
+      description:
+        "A modern, minimalist platform for buying and selling items. Features real-time listings, categories, search, and transaction management. Users can list items, browse by category, and interact with sellers seamlessly.",
+      subdescription:
+        "Built with Next.js, Prisma, PostgreSQL, TailwindCSS, TypeScript, and Cloudinary. Integrated with a secure backend and optimized for performance and scalability.",
+      liveUrl: "https://marketplace-app-one-beta.vercel.app",
+      githubUrl: "https://github.com/lumin27/marketplace-app",
+      tags: [
+        "Next.js",
+        "React.js",
+        "Node.js",
+        "TailwindCSS",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL",
+        "Cloudinary",
+        "Supabase Auth",
       ],
       featured: true,
     },

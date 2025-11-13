@@ -72,6 +72,27 @@ const Experience = () => {
     },
     {
       id: 4,
+      title: "Marketplace App",
+      company: "Personal Project",
+      period: "2025",
+      type: "project",
+      description:
+        "Built a modern buy-and-sell marketplace with Next.js, Prisma, and PostgreSQL. Features real-time listings, categories, search, user interactions, and seamless transaction management.",
+      technologies: [
+        "Next.js",
+        "React.js",
+        "TailwindCSS",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL",
+        "Cloudinary",
+        "Superbase Auth",
+        "Server Actions",
+      ],
+      icon: <CodeIcon className='h-5 w-5' />,
+    },
+    {
+      id: 4,
       title: "Full Stack Development Journey",
       company: "Self-taught Developer",
       period: "2023 - Present",
