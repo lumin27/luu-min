@@ -24,7 +24,7 @@ const Footer = () => {
             </div>
 
             <p className='text-muted-foreground'>
-              Full Stack Developer passionate about creating beautiful,
+              Junior Full Stack Developer passionate about creating beautiful,
               functional web applications with modern technologies.
             </p>
           </div>
@@ -81,13 +81,9 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className='pt-8 border-t border-border'>
-          <div className='flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0'>
+          <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0'>
             <p className='text-muted-foreground text-sm'>
               © {currentYear} Luu Min. All rights reserved.
-            </p>
-            <p className='text-muted-foreground text-sm flex items-center gap-1'>
-              Made with <HeartIcon className='h-4 w-4 text-red-500' /> using
-              React & TailwindCSS
             </p>
           </div>
         </div>

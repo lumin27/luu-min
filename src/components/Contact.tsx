@@ -229,10 +229,10 @@ const Contact = () => {
                 <CardContent className='p-8'>
                   <h3 className='text-xl font-semibold mb-4'>Quick Info</h3>
                   <div className='space-y-3 text-muted-foreground'>
-                    <p>📍 Available for remote work</p>
-                    <p>⚡ Quick to respond</p>
-                    <p>🚀 Ready for new challenges</p>
-                    <p>💼 Open to full-time & freelance</p>
+                    <p>Available for remote work</p>
+                    <p>Quick to respond</p>
+                    <p>Ready for new challenges</p>
+                    <p>Open to full-time & freelance</p>
                   </div>
                 </CardContent>
               </Card>

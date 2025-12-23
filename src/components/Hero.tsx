@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/react-icons";
 
 const Hero = () => {
-  const lines = ["Full Stack Developer", "Building Modern Web Apps"];
+  const lines = ["Junior Full Stack Developer", "Building Modern Web Apps"];
 
   const [isVisible, setIsVisible] = useState(false);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);

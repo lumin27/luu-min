@@ -113,11 +113,11 @@ const About = () => {
             <Card className='glass-card glow-hover'>
               <CardContent className='p-8'>
                 <h3 className='text-2xl font-semibold mb-4 text-primary'>
-                  Full Stack Developer
+                  Junior Full Stack Developer
                 </h3>
                 <p className='text-muted-foreground leading-relaxed mb-4'>
-                  I'm a passionate full-stack developer with expertise in modern
-                  web technologies. I love creating efficient, scalable, and
+                  I'm junior full-stack developer with expertise in modern web
+                  technologies. I love creating efficient, scalable, and
                   user-friendly applications that solve real-world problems.
                 </p>
                 <p className='text-muted-foreground leading-relaxed mb-4'>
