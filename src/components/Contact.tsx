@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,12 +10,14 @@ import {
   GitHubLogoIcon,
   LinkedInLogoIcon,
   EnvelopeClosedIcon,
+  CheckCircledIcon,
 } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
+import Reveal from "@/components/Reveal";
+import SectionHeader from "@/components/SectionHeader";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -70,26 +72,12 @@ const Contact = () => {
     }
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.2 }
-    );
-
-    const element = document.getElementById("contact");
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
-
   const socialLinks = [
     {
-      name: "GitHub",
-      href: "https://github.com/lumin27",
-      icon: <GitHubLogoIcon className='h-6 w-6' />,
-      description: "Check out my code",
+      name: "Email",
+      href: "mailto:linnmu2030@gmail.com",
+      icon: <EnvelopeClosedIcon className='h-6 w-6' />,
+      description: "linnmu2030@gmail.com",
     },
     {
       name: "LinkedIn",
@@ -98,108 +86,111 @@ const Contact = () => {
       description: "Let's connect professionally",
     },
     {
-      name: "Email",
-      href: "mailto:linnmu2030@gmail.com",
-      icon: <EnvelopeClosedIcon className='h-6 w-6' />,
-      description: "Send me an email",
+      name: "GitHub",
+      href: "https://github.com/lumin27",
+      icon: <GitHubLogoIcon className='h-6 w-6' />,
+      description: "Check out my code",
     },
   ];
 
+  const quickInfo = [
+    "Open to startup collaboration",
+    "Available for remote work",
+    "Open to full-time & freelance",
+    "Quick to respond",
+  ];
+
   return (
-    <section id='contact' className='py-20'>
+    <section id='contact' className='py-20 md:py-28 bg-muted/30 section-divider'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "animate-slide-up" : "opacity-0"
-          }`}>
-          {/* Section Header */}
-          <div className='text-center mb-16'>
-            <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent'>
-              Get In Touch
-            </h2>
-            <div className='w-24 h-1 bg-gradient-to-r from-primary to-electric-blue mx-auto mb-8'></div>
-            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
-              I'm always open to discussing new opportunities, interesting
-              projects, or just having a chat about technology.
-            </p>
-          </div>
+        <div>
+          <SectionHeader
+            eyebrow='Get in touch'
+            title="Let's Work Together"
+            description={
+              <>
+                I&apos;m open to collaborating with startups and small teams on
+                practical software. If you&apos;re building something useful,
+                I&apos;d like to hear about it.
+              </>
+            }
+          />
 
-          <div className='grid lg:grid-cols-2 gap-12'>
+          <div className='grid lg:grid-cols-2 gap-8 lg:gap-12'>
             {/* Contact Form */}
-            <Card className='glass-card glow-hover animate-slide-up'>
-              <CardHeader>
-                <CardTitle className='text-2xl'>Send me a message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className='space-y-6'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='name'>Name</Label>
-                    <Input
-                      id='name'
-                      name='name'
-                      type='text'
-                      placeholder='Your name'
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className='glow-hover'
-                    />
-                  </div>
+            <Reveal>
+              <Card className='glass-card h-full'>
+                <CardHeader>
+                  <CardTitle className='text-2xl'>Send me a message</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className='space-y-6'>
+                    <div className='space-y-2'>
+                      <Label htmlFor='name'>Name</Label>
+                      <Input
+                        id='name'
+                        name='name'
+                        type='text'
+                        placeholder='Your name'
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className='bg-background/60'
+                      />
+                    </div>
 
-                  <div className='space-y-2'>
-                    <Label htmlFor='email'>Email</Label>
-                    <Input
-                      id='email'
-                      name='email'
-                      type='email'
-                      placeholder='your.email@example.com'
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className='glow-hover'
-                    />
-                  </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='email'>Email</Label>
+                      <Input
+                        id='email'
+                        name='email'
+                        type='email'
+                        placeholder='your.email@example.com'
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className='bg-background/60'
+                      />
+                    </div>
 
-                  <div className='space-y-2'>
-                    <Label htmlFor='message'>Message</Label>
-                    <Textarea
-                      id='message'
-                      name='message'
-                      placeholder='Tell me about your project or just say hello...'
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      className='glow-hover resize-none'
-                    />
-                  </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='message'>Message</Label>
+                      <Textarea
+                        id='message'
+                        name='message'
+                        placeholder='Tell me about your project, team, or idea...'
+                        rows={5}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        className='resize-none bg-background/60'
+                      />
+                    </div>
 
-                  <Button
-                    type='submit'
-                    disabled={isSubmitting}
-                    className='w-full glow-hover bg-primary hover:bg-primary/90'>
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                    <Button
+                      type='submit'
+                      disabled={isSubmitting}
+                      className='w-full h-11 text-base'>
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </Reveal>
 
             {/* Contact Info & Social Links */}
-            <div
-              className='space-y-8 animate-slide-up'
-              style={{ animationDelay: "0.2s" }}>
-              <Card className='glass-card glow-hover'>
-                <CardContent className='p-8'>
-                  <h3 className='text-2xl font-semibold mb-6'>Let's Connect</h3>
-                  <p className='text-muted-foreground leading-relaxed mb-8'>
-                    I'm currently open to new opportunities and interesting
-                    projects. Whether you have a project in mind, want to
-                    collaborate, or just want to say hello, I'd love to hear
-                    from you!
+            <Reveal delay={100} className='space-y-8'>
+              <Card className='glass-card'>
+                <CardContent className='p-6 sm:p-8'>
+                  <h3 className='text-2xl font-semibold mb-4'>Let&apos;s Connect</h3>
+                  <p className='text-muted-foreground leading-relaxed mb-6'>
+                    Have a project in mind, need an extra developer on a small
+                    team, or just want to talk about building software with AI
+                    tools? Email is the quickest way to reach me.
                   </p>
 
-                  <div className='space-y-4'>
-                    {socialLinks.map((link, index) => (
+                  <div className='space-y-3'>
+                    {socialLinks.map((link) => (
                       <a
                         key={link.name}
                         href={link.href}
@@ -209,12 +200,11 @@ const Contact = () => {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className='flex items-center gap-4 p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors duration-200 glow-hover animate-scale-in'
-                        style={{ animationDelay: `${index * 0.1}s` }}>
+                        className='flex items-center gap-4 p-4 rounded-lg border border-transparent bg-muted/50 transition-colors duration-200 hover:bg-muted hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
                         <div className='text-primary'>{link.icon}</div>
-                        <div>
-                          <h4 className='font-medium'>{link.name}</h4>
-                          <p className='text-sm text-muted-foreground'>
+                        <div className='min-w-0'>
+                          <p className='font-medium'>{link.name}</p>
+                          <p className='text-sm text-muted-foreground break-all'>
                             {link.description}
                           </p>
                         </div>
@@ -225,18 +215,23 @@ const Contact = () => {
               </Card>
 
               {/* Quick Info */}
-              <Card className='glass-card glow-hover'>
-                <CardContent className='p-8'>
+              <Card className='glass-card'>
+                <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-xl font-semibold mb-4'>Quick Info</h3>
-                  <div className='space-y-3 text-muted-foreground'>
-                    <p>Available for remote work</p>
-                    <p>Quick to respond</p>
-                    <p>Ready for new challenges</p>
-                    <p>Open to full-time & freelance</p>
-                  </div>
+                  <ul className='space-y-3 text-muted-foreground'>
+                    {quickInfo.map((item) => (
+                      <li key={item} className='flex items-center gap-3'>
+                        <CheckCircledIcon
+                          aria-hidden='true'
+                          className='h-4 w-4 flex-shrink-0 text-primary'
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

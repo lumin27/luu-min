@@ -1,35 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon, RocketIcon, CodeIcon } from "@radix-ui/react-icons";
+import Reveal from "@/components/Reveal";
+import SectionHeader from "@/components/SectionHeader";
+import SchoolynExperience from "@/components/SchoolynExperience";
 
 const Experience = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
   const timeline = [
-    {
-      id: 1,
-      title: "EduTrack Development",
-      company: "Personal Project",
-      period: "2024",
-      type: "project",
-      description:
-        "Built a comprehensive school dashboard system with Next.js, featuring attendance tracking, communication tools, and performance monitoring for educational institutions.",
-      technologies: [
-        "Next.js",
-        "React.js",
-        "TailwindCSS",
-        "TypeScript",
-        "Prisma",
-        "PostgreSQL",
-        "Zod",
-        "Clerk",
-        "Event Calendar",
-      ],
-      icon: <RocketIcon className='h-5 w-5' />,
-    },
     {
       id: 2,
       title: "BlogSphere Platform",
@@ -86,13 +65,13 @@ const Experience = () => {
         "Prisma",
         "PostgreSQL",
         "Cloudinary",
-        "Superbase Auth",
+        "Supabase Auth",
         "Server Actions",
       ],
       icon: <CodeIcon className='h-5 w-5' />,
     },
     {
-      id: 4,
+      id: 5,
       title: "Full Stack Development Journey",
       company: "Self-taught Developer",
       period: "2023 - Present",
@@ -117,55 +96,43 @@ const Experience = () => {
     },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    const element = document.getElementById("experience");
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id='experience' className='py-20 bg-muted/30'>
-      <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "animate-slide-up" : "opacity-0"
-          }`}>
-          {/* Section Header */}
-          <div className='text-center mb-16'>
-            <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent'>
-              Experience & Journey
-            </h2>
-            <div className='w-24 h-1 bg-gradient-to-r from-primary to-electric-blue mx-auto mb-8'></div>
-            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
-              My development journey and the projects that shaped my skills.
-            </p>
-          </div>
+    <section id='experience' className='py-20 md:py-28 bg-muted/30 section-divider'>
+      <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div>
+          <SectionHeader
+            eyebrow='How I got here'
+            title='Experience & Journey'
+            description={
+              <>
+                I learn by building real products and improving them over time.
+                Most of that work has gone into Schoolyn.
+              </>
+            }
+          />
+
+          <SchoolynExperience />
+
+          <Reveal>
+            <h3 className='text-2xl font-semibold text-center mt-16 md:mt-20 mb-10'>
+              Earlier projects
+            </h3>
+          </Reveal>
 
           {/* Timeline */}
-          <div className='relative'>
+          <div className='relative max-w-4xl mx-auto'>
             {/* Timeline Line */}
-            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-primary via-electric-blue to-primary'></div>
+            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-primary/70 via-electric-blue/50 to-transparent'></div>
 
             <div className='space-y-12'>
               {timeline.map((item, index) => (
-                <div
+                <Reveal
                   key={item.id}
-                  className={`relative flex items-center animate-slide-up ${
+                  className={`relative flex items-center ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                  style={{ animationDelay: `${index * 0.2}s` }}>
+                  }`}>
                   {/* Timeline Node */}
-                  <div className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-electric-blue rounded-full border-4 border-background z-10 glow-hover'></div>
+                  <div className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-electric-blue rounded-full border-4 border-background ring-4 ring-primary/15 z-10'></div>
 
                   {/* Content Card */}
                   <div
@@ -220,7 +187,7 @@ const Experience = () => {
 
                   {/* Spacer for desktop */}
                   <div className='hidden md:block w-5/12'></div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

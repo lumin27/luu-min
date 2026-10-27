@@ -1,11 +1,37 @@
 "use client";
 
 import {
+  EnvelopeClosedIcon,
   GitHubLogoIcon,
   LinkedInLogoIcon,
-  HeartIcon,
 } from "@radix-ui/react-icons";
 import Image from "next/image";
+
+const quickLinks = [
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Services", href: "#services" },
+  { name: "Contact", href: "#contact" },
+];
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    href: "https://github.com/lumin27",
+    icon: <GitHubLogoIcon className='h-5 w-5' />,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/luu-min-a779b9334/",
+    icon: <LinkedInLogoIcon className='h-5 w-5' />,
+  },
+  {
+    name: "Email",
+    href: "mailto:linnmu2030@gmail.com",
+    icon: <EnvelopeClosedIcon className='h-5 w-5' />,
+  },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,75 +43,64 @@ const Footer = () => {
           {/* Brand */}
           <div className='space-y-4'>
             <div className='flex items-center space-x-4'>
-              <h3 className='text-xl font-bold bg-gradient-to-r from-primary to-electric-blue bg-clip-text text-transparent'>
+              <p className='text-xl font-bold bg-gradient-to-r from-primary to-electric-blue bg-clip-text text-transparent'>
                 Luu Min
-              </h3>
-              <Image src='/favicon.ico' alt='Logo' width={32} height={32} />
+              </p>
+              <Image src='/favicon.ico' alt='' width={32} height={32} />
             </div>
 
             <p className='text-muted-foreground'>
-              Junior Full Stack Developer passionate about creating beautiful,
-              functional web applications with modern technologies.
+              Full-Stack Developer & Product Builder. I build practical
+              software products and I&apos;m exploring AI-assisted development.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className='space-y-4'>
-            <h4 className='font-semibold'>Quick Links</h4>
-            <div className='space-y-2'>
-              {[
-                { name: "About", href: "#about" },
-                { name: "Projects", href: "#projects" },
-                { name: "Experience", href: "#experience" },
-                { name: "Contact", href: "#contact" },
-              ].map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => {
-                    const element = document.querySelector(link.href);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className='block text-muted-foreground hover:text-primary transition-colors duration-200'>
-                  {link.name}
-                </button>
+          <nav aria-label='Footer' className='space-y-4'>
+            <h2 className='font-semibold'>Quick Links</h2>
+            <ul className='space-y-2'>
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className='text-muted-foreground hover:text-primary transition-colors duration-200'>
+                    {link.name}
+                  </a>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </nav>
 
           {/* Social Links */}
           <div className='space-y-4'>
-            <h4 className='font-semibold'>Connect</h4>
-            <div className='flex space-x-4'>
-              <a
-                href='https://github.com/lumin27'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='p-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors duration-200 glow-hover'>
-                <GitHubLogoIcon className='h-5 w-5' />
-              </a>
-              <a
-                href='https://www.linkedin.com/in/luu-min-a779b9334/'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='p-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors duration-200 glow-hover'>
-                <LinkedInLogoIcon className='h-5 w-5' />
-              </a>
-            </div>
+            <h2 className='font-semibold'>Connect</h2>
+            <ul className='flex space-x-4'>
+              {socialLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    target={link.name !== "Email" ? "_blank" : undefined}
+                    rel={
+                      link.name !== "Email" ? "noopener noreferrer" : undefined
+                    }
+                    aria-label={link.name}
+                    className='block p-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
+                    {link.icon}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <p className='text-sm text-muted-foreground'>
-              Let's connect and build something amazing together!
+              Open to collaborating on useful software &mdash; let&apos;s talk.
             </p>
           </div>
         </div>
 
         {/* Copyright */}
         <div className='pt-8 border-t border-border'>
-          <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0'>
-            <p className='text-muted-foreground text-sm'>
-              © {currentYear} Luu Min. All rights reserved.
-            </p>
-          </div>
+          <p className='text-center text-muted-foreground text-sm'>
+            © {currentYear} Luu Min. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

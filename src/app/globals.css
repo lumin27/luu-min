@@ -136,8 +136,41 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight;
+    text-wrap: balance;
+  }
+
+  section[id] {
+    scroll-margin-top: 4rem;
+  }
+
+  ::selection {
+    background: hsl(var(--electric-blue) / 0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -234,20 +267,99 @@
     animation: gradient-shift 8s ease infinite;
   }
 
+  /* Solid surface; the page background is opaque, so a backdrop blur adds cost without visual benefit. */
   .glass-card {
-    background: hsl(var(--glass-bg));
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.8);
     box-shadow: var(--shadow-card);
   }
 
   .glow-hover {
-    transition: var(--transition-smooth);
+    transition-property: border-color, box-shadow, background-color;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .glow-hover:hover {
-    box-shadow: var(--shadow-glow);
-    transform: translateY(-2px);
+  .lift-hover {
+    transition-property: border-color, box-shadow, background-color, transform;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) {
+    .glow-hover:hover,
+    .lift-hover:hover {
+      border-color: hsl(var(--electric-blue) / 0.4);
+      box-shadow:
+        0 0 0 1px hsl(var(--electric-blue) / 0.08),
+        0 18px 40px -20px hsl(var(--electric-blue) / 0.45);
+    }
+
+    .lift-hover:hover {
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+
+  /* Scroll reveal: hidden until the element has been in view once (see use-in-view). */
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Restrained static lighting; gradients only, no blur filters or animation. */
+  .ambient-hero {
+    background:
+      radial-gradient(
+        42rem 32rem at 12% 18%,
+        hsl(var(--electric-blue) / 0.16),
+        transparent 70%
+      ),
+      radial-gradient(
+        36rem 28rem at 88% 72%,
+        hsl(var(--gradient-end) / 0.1),
+        transparent 70%
+      );
+  }
+
+  .ambient-spot {
+    background: radial-gradient(
+      40rem 24rem at 85% 0%,
+      hsl(var(--electric-blue) / 0.14),
+      transparent 70%
+    );
+  }
+
+  .section-divider {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--electric-blue) / 0.35),
+      transparent
+    );
+    background-repeat: no-repeat;
+    background-size: min(48rem, 80%) 1px;
+    background-position: top center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .lift-hover:hover {
+      transform: none;
+    }
   }
 
   .typing-text {

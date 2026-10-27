@@ -1,24 +1,76 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ArrowDownIcon,
+  EnvelopeClosedIcon,
   GitHubLogoIcon,
   LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
 
-const Hero = () => {
-  const lines = ["Junior Full Stack Developer", "Building Modern Web Apps"];
+const lines = [
+  "Full-Stack Developer & Product Builder",
+  "Building Practical Web Apps",
+  "Exploring AI-Assisted Development",
+];
 
-  const [isVisible, setIsVisible] = useState(false);
+const socialLinks = [
+  {
+    name: "GitHub",
+    href: "https://github.com/lumin27",
+    icon: <GitHubLogoIcon className='h-6 w-6' />,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/luu-min-a779b9334/",
+    icon: <LinkedInLogoIcon className='h-6 w-6' />,
+  },
+  {
+    name: "Email",
+    href: "mailto:linnmu2030@gmail.com",
+    icon: <EnvelopeClosedIcon className='h-6 w-6' />,
+  },
+];
+
+// Long lines can't fit on one line on phones; break at a chosen point so no word is orphaned.
+const phoneBreaks = ["& ", "AI-Assisted "];
+
+const renderTypedText = (text: string) => {
+  const token = phoneBreaks.find((candidate) => text.includes(candidate));
+  if (!token) return text;
+  const breakAt = text.indexOf(token) + token.length;
+  return (
+    <>
+      {text.slice(0, breakAt)}
+      <br className='sm:hidden' />
+      {text.slice(breakAt)}
+    </>
+  );
+};
+
+const Caret = () => (
+  <span
+    aria-hidden='true'
+    className='inline-block w-[3px] h-[1.05em] ml-1 rounded-full bg-primary align-[-0.15em] motion-safe:animate-caret-blink'
+  />
+);
+
+const entrance = (delay: number) => ({ animationDelay: `${delay}ms` });
+
+const Hero = () => {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    setIsVisible(true);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayedText(lines[currentLineIndex]);
+      return;
+    }
 
     let index = 0;
+    let nextLineTimeout: ReturnType<typeof setTimeout> | undefined;
     const currentText = lines[currentLineIndex];
 
     const typer = setInterval(() => {
@@ -27,112 +79,148 @@ const Hero = () => {
         index++;
       } else {
         clearInterval(typer);
-        setTimeout(() => {
+        nextLineTimeout = setTimeout(() => {
           setCurrentLineIndex((prev) => (prev + 1) % lines.length);
           setDisplayedText("");
-        }, 1000);
+        }, 1500);
       }
-    }, 100);
+    }, 80);
 
-    return () => clearInterval(typer);
+    return () => {
+      clearInterval(typer);
+      clearTimeout(nextLineTimeout);
+    };
   }, [currentLineIndex]);
-
-  const scrollToProjects = () => {
-    const element = document.querySelector("#projects");
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToContact = () => {
-    const element = document.querySelector("#contact");
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section
       id='hero'
-      className='min-h-screen flex items-center justify-center relative overflow-hidden '>
+      className='min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-16 lg:pt-16'>
+      <div aria-hidden='true' className='pointer-events-none absolute inset-0 ambient-hero' />
+      <div
+        aria-hidden='true'
+        className='pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background'
+      />
       <div className='relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "animate-fade-in" : "opacity-0"
-          }`}>
-          <div className='flex flex-col lg:flex-row items-center justify-center px-4 sm:px-6 lg:px-8 gap-8 lg:gap-10'>
-            {/* Photo Left */}
-            <div className='flex-shrink-0 w-48 lg:w-[300px] h-50 lg:h-[400px] rounded-[50%/40%] lg:mb-10 overflow-hidden border-4 border-primary shadow-xl transform transition-transform duration-300 hover:scale-105'>
-              <img
+        <div>
+          <div className='flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16'>
+            {/* Photo */}
+            <div
+              style={entrance(0)}
+              className='relative flex-shrink-0 w-48 h-60 sm:w-56 sm:h-72 lg:w-[300px] lg:h-[400px] rounded-[50%/40%] overflow-hidden border-4 border-primary shadow-[0_30px_80px_-30px_hsl(var(--electric-blue)/0.65)] transition-transform duration-500 ease-out motion-safe:hover:scale-[1.03] motion-safe:animate-fade-up'>
+              <Image
                 src='/luu-min.png'
-                alt='Luu Min'
-                className='w-full h-full object-cover'
+                alt='Portrait of Luu Min'
+                fill
+                priority
+                sizes='(min-width: 1024px) 300px, (min-width: 640px) 224px, 192px'
+                className='object-cover'
               />
             </div>
 
-            {/* Text Right */}
+            {/* Text */}
             <div className='flex-1 text-center lg:text-left'>
-              <p className='text-lg text-muted-foreground mb-4 animate-slide-up'>
-                Hello,
+              <p
+                style={entrance(80)}
+                className='text-base sm:text-lg font-medium text-muted-foreground mb-3 motion-safe:animate-fade-up'>
+                Hello, I&apos;m
               </p>
-              <div className='flex flex-row md:items-center justify-center sm:justify-center md:justify-center lg:justify-start gap-2 md:gap-4'>
-                <h1 className='text-3xl md:text-5xl font-bold bg-gradient-to-r from-foreground via-primary to-electric-blue bg-clip-text text-transparent animate-scale-in'>
-                  I'm
-                </h1>
-                <h1 className='text-3xl md:text-5xl font-bold bg-gradient-to-r from-foreground via-primary to-electric-blue bg-clip-text text-transparent animate-scale-in'>
-                  Luu Min
-                </h1>
-              </div>
+              <h1
+                style={entrance(140)}
+                className='text-5xl sm:text-6xl lg:text-7xl font-bold mb-5 pb-1 bg-gradient-to-r from-foreground via-primary to-electric-blue bg-clip-text text-transparent motion-safe:animate-fade-up'>
+                Luu Min
+              </h1>
 
-              <div className='text-2xl md:text-4xl font-semibold text-muted-foreground mb-4 h-16 flex items-center justify-center lg:justify-start'>
-                <span className='border-r-2 border-primary animate-blink pr-1'>
-                  {displayedText}
+              <p className='sr-only'>{lines.join(". ")}</p>
+              {/* An invisible copy of the full line fixes the box size, so typing never shifts the layout. */}
+              <div
+                aria-hidden='true'
+                style={entrance(200)}
+                className='text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground mb-6 h-16 sm:h-10 md:h-12 flex items-center justify-center lg:justify-start motion-safe:animate-fade-up'>
+                <span className='grid text-left'>
+                  <span className='invisible col-start-1 row-start-1'>
+                    {renderTypedText(lines[currentLineIndex])}
+                    <Caret />
+                  </span>
+                  <span className='col-start-1 row-start-1'>
+                    {renderTypedText(displayedText)}
+                    <Caret />
+                  </span>
                 </span>
               </div>
 
-              <p className='text-lg md:text-xl text-muted-foreground max-w-2xl md:mb-12 mb-8 leading-relaxed animate-fade-in'>
-                Passionate about creating beautiful, functional web applications
-                with modern technologies. Specializing in React, Next.js, and
-                full-stack development.
+              <p
+                style={entrance(260)}
+                className='text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-4 leading-relaxed motion-safe:animate-fade-up'>
+                I build practical software products, from SaaS platforms like{" "}
+                <a
+                  href='#schoolyn'
+                  className='text-primary font-medium underline-offset-4 hover:underline'>
+                  Schoolyn
+                </a>{" "}
+                to mobile applications and custom business tools.
+              </p>
+              <p
+                style={entrance(300)}
+                className='text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed motion-safe:animate-fade-up'>
+                I&apos;m exploring how AI coding tools can help me ship and
+                iterate faster, and I&apos;d love to help early-stage teams turn
+                ideas into useful software.
               </p>
 
-              <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start md:mb-16 mb-10  animate-slide-up'>
+              <div
+                style={entrance(360)}
+                className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 motion-safe:animate-fade-up'>
                 <Button
                   size='lg'
-                  onClick={scrollToProjects}
-                  className='glow-hover bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-semibold'>
-                  View Projects <ArrowDownIcon className='ml-2 h-5 w-5' />
+                  asChild
+                  className='h-12 px-8 text-base sm:text-lg font-semibold'>
+                  <a href='#projects'>
+                    View Projects{" "}
+                    <ArrowDownIcon className='ml-1 !h-5 !w-5 group-hover:translate-y-0.5' />
+                  </a>
                 </Button>
                 <Button
                   variant='outline'
                   size='lg'
-                  onClick={scrollToContact}
-                  className='glow-hover border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 text-lg font-semibold'>
-                  Contact Me
+                  asChild
+                  className='h-12 px-8 border-primary/70 bg-transparent text-primary hover:bg-primary hover:border-primary hover:text-primary-foreground text-base sm:text-lg font-semibold'>
+                  <a href='#contact'>Let&apos;s Work Together</a>
                 </Button>
               </div>
 
-              <div className='flex justify-center lg:justify-start space-x-6 animate-fade-in'>
-                <a
-                  href='https://github.com/lumin27'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-muted-foreground hover:text-primary transition-colors duration-200 glow-hover'>
-                  <GitHubLogoIcon className='h-6 w-6' />
-                </a>
-                <a
-                  href='https://www.linkedin.com/in/luu-min-a779b9334/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-muted-foreground hover:text-primary transition-colors duration-200 glow-hover'>
-                  <LinkedInLogoIcon className='h-6 w-6' />
-                </a>
-              </div>
+              <ul
+                style={entrance(420)}
+                className='flex justify-center lg:justify-start gap-4 motion-safe:animate-fade-up'>
+                {socialLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target={link.name !== "Email" ? "_blank" : undefined}
+                      rel={
+                        link.name !== "Email"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      aria-label={link.name}
+                      className='block rounded-md p-1.5 text-muted-foreground transition-colors duration-200 hover:text-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
+                      {link.icon}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce'>
-            <ArrowDownIcon className='h-6 w-6 text-muted-foreground' />
           </div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <a
+        href='#about'
+        aria-label='Scroll to About section'
+        className='hidden md:block absolute bottom-6 left-1/2 -translate-x-1/2 z-10 rounded-full p-1 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-safe:animate-bounce'>
+        <ArrowDownIcon className='h-6 w-6' />
+      </a>
     </section>
   );
 };
