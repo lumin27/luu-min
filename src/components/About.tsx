@@ -52,14 +52,20 @@ const skillGroups: SkillGroup[] = [
     skills: [
       { name: "HTML", icon: <SiHtml5 className='text-orange-500' /> },
       { name: "CSS", icon: <SiCss3 className='text-blue-500' /> },
-      { name: "JavaScript", icon: <SiJavascript className='text-yellow-500' /> },
+      {
+        name: "JavaScript",
+        icon: <SiJavascript className='text-yellow-500' />,
+      },
       { name: "TypeScript", icon: <SiTypescript className='text-blue-600' /> },
       { name: "React.js", icon: <SiReact className='text-sky-500' /> },
       {
         name: "Next.js",
         icon: <SiNextdotjs className='text-black dark:text-white' />,
       },
-      { name: "TailwindCSS", icon: <SiTailwindcss className='text-cyan-500' /> },
+      {
+        name: "TailwindCSS",
+        icon: <SiTailwindcss className='text-cyan-500' />,
+      },
       { name: "Material UI", icon: <SiMui className='text-blue-600' /> },
       { name: "Bootstrap", icon: <SiBootstrap className='text-purple-600' /> },
     ],
@@ -71,7 +77,10 @@ const skillGroups: SkillGroup[] = [
       { name: "Prisma", icon: <SiPrisma className='text-indigo-500' /> },
       { name: "PostgreSQL", icon: <SiPostgresql className='text-blue-500' /> },
       { name: "Supabase", icon: <SiSupabase className='text-green-500' /> },
-      { name: "Zod", icon: <SiZod className='text-blue-700 dark:text-blue-400' /> },
+      {
+        name: "Zod",
+        icon: <SiZod className='text-blue-700 dark:text-blue-400' />,
+      },
     ],
   },
   {
@@ -99,9 +108,18 @@ const skillGroups: SkillGroup[] = [
         icon: <SiDigitalocean className='text-blue-500' />,
       },
       { name: "Nginx", icon: <SiNginx className='text-green-600' /> },
-      { name: "PM2", icon: <SiPm2 className='text-blue-700 dark:text-blue-400' /> },
-      { name: "Cloudflare", icon: <SiCloudflare className='text-orange-500' /> },
-      { name: "Vercel", icon: <SiVercel className='text-black dark:text-white' /> },
+      {
+        name: "PM2",
+        icon: <SiPm2 className='text-blue-700 dark:text-blue-400' />,
+      },
+      {
+        name: "Cloudflare",
+        icon: <SiCloudflare className='text-orange-500' />,
+      },
+      {
+        name: "Vercel",
+        icon: <SiVercel className='text-black dark:text-white' />,
+      },
       { name: "Cron jobs", icon: <ClockIcon className='text-primary' /> },
     ],
     familiar: ["Docker", "Neon (serverless Postgres)"],
@@ -159,7 +177,7 @@ const About = () => {
                   <div className='space-y-4 text-muted-foreground leading-relaxed'>
                     <p>
                       I&apos;m a self-taught developer who learns best by
-                      building. Since 2023 I&apos;ve been turning what I learn
+                      building. Since 2022 I&apos;ve been turning what I learn
                       into complete, deployed applications rather than stopping
                       at tutorials.
                     </p>
@@ -176,8 +194,8 @@ const About = () => {
                       dashboard called EduTrack. I&apos;ve kept building it into
                       a multi-school SaaS product, adding features, tightening
                       permissions, fixing bugs, and preparing it for production.
-                      It&apos;s where I&apos;ve learned the most about working on
-                      a real, growing codebase.
+                      It&apos;s where I&apos;ve learned the most about working
+                      on a real, growing codebase.
                     </p>
                     <p>
                       Lately I&apos;ve been exploring AI-assisted development.
