@@ -37,25 +37,25 @@ export function ThemeProvider({
   defaultTheme = "light",
   storageKey = "portfolio-theme",
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
-  // Until the stored preference is read, applying `theme` would write the default over it.
-  const [loaded, setLoaded] = useState(false);
+  // The inline head script in layout.tsx has already applied the stored
+  // preference to <html>, so start from that instead of the default; otherwise
+  // the effect below would write the default over a saved choice.
+  const [theme, setTheme] = useState<Theme>(() =>
+    typeof document === "undefined"
+      ? defaultTheme
+      : document.documentElement.classList.contains("dark")
+        ? "dark"
+        : "light"
+  );
 
   useEffect(() => {
-    const stored = localStorage.getItem(storageKey);
-    if (stored === "light" || stored === "dark") setTheme(stored);
-    setLoaded(true);
-  }, [storageKey]);
-
-  useEffect(() => {
-    if (!loaded) return;
     const root = document.documentElement;
 
     if (theme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
 
     localStorage.setItem(storageKey, theme);
-  }, [theme, loaded, storageKey]);
+  }, [theme, storageKey]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

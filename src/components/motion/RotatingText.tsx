@@ -41,7 +41,7 @@ const DELETE_STEP_MS = 28;
 const EMPTY_PAUSE_MS = 350;
 
 /** Animation only runs while on screen, with the tab visible and reduced motion off. */
-const useCanAnimate = (ref: RefObject<HTMLElement>) => {
+const useCanAnimate = (ref: RefObject<HTMLElement | null>) => {
   const [state, setState] = useState({ canAnimate: false, reduced: false });
 
   useEffect(() => {
@@ -154,17 +154,17 @@ const RotatingText = ({
         />
       </span>
     );
-    let start = 0;
-    let caretPlaced = false;
-    const parts = splitAtBreak(line, mobileBreaks).map((part) => {
-      const visible = part.slice(0, Math.max(0, typed - start));
-      const showCaret = !caretPlaced && typed <= start + part.length;
-      if (showCaret) caretPlaced = true;
-      start += part.length;
+    const segments = splitAtBreak(line, mobileBreaks);
+    const starts = segments.map((_, i) => segments.slice(0, i).join("").length);
+    const caretSegment = segments.findIndex(
+      (part, i) => typed <= starts[i] + part.length
+    );
+    const parts = segments.map((part, i) => {
+      const visible = part.slice(0, Math.max(0, typed - starts[i]));
       return (
         <>
           {visible}
-          {showCaret && caret}
+          {i === caretSegment && caret}
           <span className='invisible'>{part.slice(visible.length)}</span>
         </>
       );
