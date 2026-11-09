@@ -92,10 +92,10 @@ const Hero = () => {
                 glareAngle={-35}
                 glareSize={40}
                 transitionDuration={900}
-                background='hsl(var(--background))'
+                background='var(--portrait-bg)'
                 className='grid w-40 h-[200px] sm:w-56 sm:h-72 lg:w-[300px] lg:h-[400px]'>
                 <Image
-                  src='/luu-min.png'
+                  src='/luu-min-halfbody.webp'
                   alt='Portrait of Luu Min'
                   fill
                   priority

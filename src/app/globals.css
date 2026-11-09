@@ -57,6 +57,9 @@
     --aurora-spot: 0.1;
     --section-glow-blue: 0.07;
     --section-glow-violet: 0.06;
+
+    /* Backdrop behind the cut-out hero portrait. */
+    --portrait-bg: linear-gradient(180deg, hsl(210 40% 97%), hsl(215 28% 90%));
     --glass-bg: 220 39% 11% / 0.1;
     --glow-color: 217 91% 60% / 0.3;
 
@@ -157,6 +160,12 @@
     --aurora-spot: 0.13;
     --section-glow-blue: 0.09;
     --section-glow-violet: 0.08;
+    --portrait-bg: radial-gradient(
+        120% 70% at 50% 0%,
+        hsl(var(--electric-blue) / 0.45),
+        transparent 65%
+      ),
+      linear-gradient(180deg, hsl(var(--card)), hsl(var(--gradient-end) / 0.35));
 
     /* Dark Custom Colors */
     --glass-bg: 210 20% 98% / 0.05;
