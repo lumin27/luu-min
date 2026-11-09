@@ -38,20 +38,24 @@ export function ThemeProvider({
   storageKey = "portfolio-theme",
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
+  // Until the stored preference is read, applying `theme` would write the default over it.
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(storageKey) as Theme;
-    if (stored) setTheme(stored);
+    const stored = localStorage.getItem(storageKey);
+    if (stored === "light" || stored === "dark") setTheme(stored);
+    setLoaded(true);
   }, [storageKey]);
 
   useEffect(() => {
+    if (!loaded) return;
     const root = document.documentElement;
 
     if (theme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
 
     localStorage.setItem(storageKey, theme);
-  }, [theme, storageKey]);
+  }, [theme, loaded, storageKey]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
