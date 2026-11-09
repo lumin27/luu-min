@@ -69,7 +69,7 @@ const services: Service[] = [
 
 const Services = () => {
   return (
-    <section id='services' className='py-20 md:py-28 section-divider'>
+    <section id='services' className='py-20 md:py-28 section-divider section-glow section-glow-flip'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div>
           <SectionHeader

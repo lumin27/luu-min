@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import Reveal from "@/components/Reveal";
 import MediaFrame from "@/components/motion/MediaFrame";
+import TiltedCard from "@/components/reactbits/TiltedCard";
 import { Badge } from "@/components/ui/badge";
 import { CheckIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
@@ -170,15 +171,29 @@ const SchoolynMobile = () => {
               className='grid grid-cols-3 gap-3 sm:gap-4 media-parallax'>
               {screenshots.map((shot) => (
                 <li key={shot.src} className='text-center'>
-                  <MediaFrame kind='phone'>
-                    <Image
-                      src={shot.src}
-                      alt={shot.alt}
-                      fill
-                      sizes='(min-width: 1024px) 180px, 30vw'
-                      className='object-cover'
-                    />
-                  </MediaFrame>
+                  <TiltedCard
+                    intro={false}
+                    gyroscope={false}
+                    rotateAmplitude={10}
+                    scaleOnHover={1.04}
+                    glare={0.3}
+                    shadow={0.45}
+                    radius='1.25rem'
+                    containerWidth='100%'
+                    containerHeight='auto'
+                    imageWidth='100%'
+                    imageHeight='100%'
+                    style={{ aspectRatio: "1206 / 2622" }}>
+                    <MediaFrame kind='phone'>
+                      <Image
+                        src={shot.src}
+                        alt={shot.alt}
+                        fill
+                        sizes='(min-width: 1024px) 180px, 30vw'
+                        className='object-cover'
+                      />
+                    </MediaFrame>
+                  </TiltedCard>
                   <p className='mt-2 text-xs text-muted-foreground'>
                     {shot.caption}
                   </p>

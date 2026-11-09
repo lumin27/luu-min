@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
+import LogoLoop, { type LogoItem } from "@/components/reactbits/LogoLoop";
 import {
   CheckCircledIcon,
   ClockIcon,
@@ -134,6 +135,29 @@ const skillGroups: SkillGroup[] = [
   },
 ];
 
+const coreStack = [
+  "Next.js",
+  "React.js",
+  "TypeScript",
+  "Node.js",
+  "Prisma",
+  "PostgreSQL",
+  "TailwindCSS",
+  "Supabase",
+  "Clerk",
+  "React Native",
+  "Vercel",
+  "DigitalOcean",
+  "Cloudflare",
+  "Git",
+];
+
+const allSkills = skillGroups.flatMap((group) => group.skills);
+const stackLogos: LogoItem[] = coreStack.flatMap((name) => {
+  const skill = allSkills.find((candidate) => candidate.name === name);
+  return skill ? [{ node: skill.icon, title: skill.name }] : [];
+});
+
 const workingPrinciples = [
   {
     title: "Start from the problem",
@@ -155,13 +179,28 @@ const workingPrinciples = [
 
 const About = () => {
   return (
-    <section id='about' className='py-20 md:py-28 bg-muted/30 section-divider'>
+    <section id='about' className='py-20 md:py-28 bg-muted/30 section-divider section-glow'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <SectionHeader
           eyebrow='Who I am'
           title='About Me'
           description='A developer who likes building things that solve real problems.'
         />
+
+        <Reveal className='mb-12 md:mb-16'>
+          <LogoLoop
+            logos={stackLogos}
+            speed={40}
+            logoHeight={26}
+            gap={44}
+            labels='inline'
+            pauseOnHover
+            intro={false}
+            draggable={false}
+            ariaLabel='Core tech stack'
+            className='text-foreground/85'
+          />
+        </Reveal>
 
         <div className='grid lg:grid-cols-2 gap-8 lg:gap-12 items-start'>
           {/* Bio */}

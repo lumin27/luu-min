@@ -13,7 +13,7 @@ const SectionHeader = ({ eyebrow, title, description }: SectionHeaderProps) => {
       <p className='text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-text mb-3'>
         {eyebrow}
       </p>
-      <h2 className='text-4xl md:text-5xl font-bold mb-5 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent'>
+      <h2 className='w-fit mx-auto text-4xl md:text-5xl font-bold tracking-tight mb-4 pb-1 bg-gradient-to-r from-foreground via-brand-text to-violet-text bg-clip-text text-transparent'>
         {title}
       </h2>
       <div

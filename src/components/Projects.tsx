@@ -113,7 +113,7 @@ const projects: Project[] = [
 
 const Projects = () => {
   return (
-    <section id='projects' className='py-20 md:py-28 section-divider'>
+    <section id='projects' className='py-20 md:py-28 section-divider section-glow section-glow-flip'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div>
           <SectionHeader

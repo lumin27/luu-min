@@ -55,6 +55,8 @@
     --aurora-top: 0.07;
     --aurora-dots: 0.09;
     --aurora-spot: 0.1;
+    --section-glow-blue: 0.07;
+    --section-glow-violet: 0.06;
     --glass-bg: 220 39% 11% / 0.1;
     --glow-color: 217 91% 60% / 0.3;
 
@@ -153,6 +155,8 @@
     --aurora-top: 0.1;
     --aurora-dots: 0.07;
     --aurora-spot: 0.13;
+    --section-glow-blue: 0.09;
+    --section-glow-violet: 0.08;
 
     /* Dark Custom Colors */
     --glass-bg: 210 20% 98% / 0.05;
@@ -519,6 +523,60 @@
       40rem 24rem at 85% 0%,
       hsl(var(--electric-blue) / 0.14),
       transparent 70%
+    );
+  }
+
+  /*
+   * Static aurora for sections below the hero, drawn on ::before so it can sit
+   * alongside `.section-divider` (which uses the section's own background).
+   * `.section-glow-flip` mirrors the sides so neighbouring sections alternate.
+   */
+  .section-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .section-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        45% 30% at 6% 18%,
+        hsl(var(--electric-blue) / var(--section-glow-blue)),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 28% at 94% 78%,
+        hsl(var(--gradient-end) / var(--section-glow-violet)),
+        transparent 70%
+      );
+  }
+
+  .section-glow-flip::before {
+    background:
+      radial-gradient(
+        45% 30% at 94% 18%,
+        hsl(var(--electric-blue) / var(--section-glow-blue)),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 28% at 6% 78%,
+        hsl(var(--gradient-end) / var(--section-glow-violet)),
+        transparent 70%
+      );
+  }
+
+  /* Hairline under the scrolled header. */
+  .header-line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--electric-blue) / 0.55) 30%,
+      hsl(var(--gradient-end) / 0.55) 70%,
+      transparent
     );
   }
 

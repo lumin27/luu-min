@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
+import SpotlightSurface from "@/components/motion/SpotlightSurface";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
@@ -101,7 +102,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id='contact' className='py-20 md:py-28 bg-muted/30 section-divider'>
+    <section id='contact' className='py-20 md:py-28 bg-muted/30 section-divider section-glow'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div>
           <SectionHeader
@@ -119,12 +120,12 @@ const Contact = () => {
           <div className='grid lg:grid-cols-2 gap-8 lg:gap-12'>
             {/* Contact Form */}
             <Reveal>
-              <Card className='glass-card h-full'>
+              <Card className='glass-card h-full flex flex-col'>
                 <CardHeader>
                   <CardTitle className='text-2xl'>Send me a message</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className='space-y-6'>
+                <CardContent className='flex flex-1 flex-col'>
+                  <form onSubmit={handleSubmit} className='flex flex-1 flex-col space-y-6'>
                     <div className='space-y-2'>
                       <Label htmlFor='name'>Name</Label>
                       <Input
@@ -153,7 +154,8 @@ const Contact = () => {
                       />
                     </div>
 
-                    <div className='space-y-2'>
+                    {/* The message box grows so the form fills a card stretched to the info column. */}
+                    <div className='flex flex-1 flex-col space-y-2'>
                       <Label htmlFor='message'>Message</Label>
                       <Textarea
                         id='message'
@@ -163,7 +165,7 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         required
-                        className='resize-none bg-background/60'
+                        className='flex-1 resize-none bg-background/60'
                       />
                     </div>
 
@@ -191,24 +193,33 @@ const Contact = () => {
 
                   <div className='space-y-3'>
                     {socialLinks.map((link) => (
-                      <a
+                      <SpotlightSurface
                         key={link.name}
-                        href={link.href}
-                        target={link.name !== "Email" ? "_blank" : undefined}
-                        rel={
-                          link.name !== "Email"
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        className='flex items-center gap-4 p-4 rounded-lg border border-transparent bg-muted/50 transition-colors duration-200 hover:bg-muted hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
-                        <div className='text-brand-text'>{link.icon}</div>
-                        <div className='min-w-0'>
-                          <p className='font-medium'>{link.name}</p>
-                          <p className='text-sm text-muted-foreground break-all'>
-                            {link.description}
-                          </p>
-                        </div>
-                      </a>
+                        className='rounded-lg'
+                        style={
+                          {
+                            "--spotlight-card-surface": "hsl(var(--muted) / 0.5)",
+                            "--spotlight-card-shadow": "none",
+                          } as CSSProperties
+                        }>
+                        <a
+                          href={link.href}
+                          target={link.name !== "Email" ? "_blank" : undefined}
+                          rel={
+                            link.name !== "Email"
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                          className='flex items-center gap-4 p-4 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'>
+                          <div className='text-brand-text'>{link.icon}</div>
+                          <div className='min-w-0'>
+                            <p className='font-medium'>{link.name}</p>
+                            <p className='text-sm text-muted-foreground break-all'>
+                              {link.description}
+                            </p>
+                          </div>
+                        </a>
+                      </SpotlightSurface>
                     ))}
                   </div>
                 </CardContent>

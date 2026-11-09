@@ -38,11 +38,17 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border/70 shadow-[0_8px_30px_-12px_hsl(0_0%_0%/0.35)]"
-          : "bg-transparent border-transparent"
+          ? "bg-background/70 backdrop-blur-xl backdrop-saturate-150 shadow-[0_8px_30px_-12px_hsl(0_0%_0%/0.35)]"
+          : "bg-transparent"
       }`}>
+      <span
+        aria-hidden='true'
+        className={`header-line pointer-events-none absolute inset-x-0 bottom-0 h-px transition-opacity duration-base ease-standard ${
+          isScrolled ? "opacity-100" : "opacity-0"
+        }`}
+      />
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
           {/* Logo */}
