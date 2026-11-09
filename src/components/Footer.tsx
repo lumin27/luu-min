@@ -43,7 +43,7 @@ const Footer = () => {
           {/* Brand */}
           <div className='space-y-4'>
             <div className='flex items-center space-x-4'>
-              <p className='text-xl font-bold bg-gradient-to-r from-primary to-electric-blue bg-clip-text text-transparent'>
+              <p className='text-xl font-bold bg-gradient-to-r from-primary to-violet-text bg-clip-text text-transparent'>
                 Luu Min
               </p>
               <Image src='/favicon.ico' alt='' width={32} height={32} />
@@ -63,7 +63,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className='text-muted-foreground hover:text-primary transition-colors duration-200'>
+                    className='text-muted-foreground hover:text-brand-text transition-colors duration-200'>
                     {link.name}
                   </a>
                 </li>

@@ -40,7 +40,17 @@ function watch(element: Element, reveal: Reveal) {
       },
       { rootMargin: "0px 0px -8% 0px" }
     );
+    // Turns off the CSS fail-safe: from here on, the observer reveals content.
+    document.documentElement.classList.add("reveal-active");
   }
+
+  // Reveal anything already on screen (or scrolled past) in the same task that
+  // turns off the fail-safe, so it never flashes hidden in between.
+  if (element.getBoundingClientRect().top < window.innerHeight * 0.92) {
+    reveal();
+    return () => {};
+  }
+
   if (pending.size === 0) {
     window.addEventListener("scroll", onScroll, { passive: true });
   }
@@ -54,17 +64,34 @@ function watch(element: Element, reveal: Reveal) {
   };
 }
 
-export function useInView<T extends HTMLElement = HTMLElement>() {
-  const ref = useRef<T>(null);
-  const [isInView, setIsInView] = useState(false);
+/**
+ * Returns the id of the section crossing a thin band just above the middle of
+ * the viewport. `ids` must be a stable array (defined outside the component).
+ */
+export function useActiveSection(ids: readonly string[]) {
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    return watch(element, () => setIsInView(true));
-  }, []);
+    const crossing = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) crossing.add(entry.target.id);
+          else crossing.delete(entry.target.id);
+        });
+        const current = ids.find((id) => crossing.has(id));
+        if (current) setActive(current);
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    ids.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, [ids]);
 
-  return { ref, isInView };
+  return active;
 }
 
 /** Marks the element with `data-revealed` once seen, without re-rendering. */

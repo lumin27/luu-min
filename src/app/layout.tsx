@@ -15,7 +15,8 @@ export const metadata = {
 };
 
 // Runs before first paint so the stored (or default dark) theme never flashes light.
-const themeScript = `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
+// `motion-ready` lets CSS hide scroll-reveal content; without JavaScript it stays visible.
+const themeScript = `(function(){var r=document.documentElement;r.classList.add('motion-ready');try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'){r.classList.add('dark');}}catch(e){r.classList.add('dark');}})();`;
 
 export default function RootLayout({
   children,

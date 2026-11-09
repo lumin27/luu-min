@@ -11,8 +11,9 @@ import {
   RocketIcon,
   Pencil2Icon,
 } from "@radix-ui/react-icons";
-import Reveal from "@/components/Reveal";
+import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
+import SpotlightSurface from "@/components/motion/SpotlightSurface";
 
 type Service = {
   title: string;
@@ -39,7 +40,7 @@ const services: Service[] = [
   {
     title: "Ordering & POS systems",
     description:
-      "QR-code ordering, order tracking, and payment integration for restaurants and small shops.",
+      "Restaurant ordering, order tracking, and payment recording.",
     icon: <ClipboardIcon className='h-5 w-5' />,
     proof: { label: "Foodie-POS", href: "#projects" },
   },
@@ -87,25 +88,27 @@ const Services = () => {
               <Reveal
                 as='li'
                 key={service.title}
-                delay={(index % 3) * 80}
-                className='glass-card lift-hover rounded-xl p-6 flex flex-col'>
-                <div
-                  aria-hidden='true'
-                  className='w-fit p-2 mb-4 bg-primary/10 rounded-lg text-primary'>
-                  {service.icon}
-                </div>
-                <h3 className='font-semibold text-lg mb-2'>{service.title}</h3>
-                <p className='text-sm text-muted-foreground leading-relaxed mb-4'>
-                  {service.description}
-                </p>
-                <p className='mt-auto text-xs text-muted-foreground'>
-                  Seen in:{" "}
-                  <a
-                    href={service.proof.href}
-                    className='text-primary font-medium hover:underline underline-offset-4'>
-                    {service.proof.label}
-                  </a>
-                </p>
+                delay={(index % 3) * STAGGER_STEP_MS}
+                className='flex'>
+                <SpotlightSurface className='p-6 flex flex-col w-full'>
+                  <div
+                    aria-hidden='true'
+                    className='w-fit p-2 mb-4 bg-primary/10 rounded-lg text-brand-text'>
+                    {service.icon}
+                  </div>
+                  <h3 className='font-semibold text-lg mb-2'>{service.title}</h3>
+                  <p className='text-sm text-muted-foreground leading-relaxed mb-4'>
+                    {service.description}
+                  </p>
+                  <p className='mt-auto text-xs text-muted-foreground'>
+                    Seen in:{" "}
+                    <a
+                      href={service.proof.href}
+                      className='text-brand-text font-medium hover:underline underline-offset-4'>
+                      {service.proof.label}
+                    </a>
+                  </p>
+                </SpotlightSurface>
               </Reveal>
             ))}
           </ul>
@@ -114,7 +117,7 @@ const Services = () => {
             <div className='flex items-start gap-3 max-w-2xl'>
               <MagicWandIcon
                 aria-hidden='true'
-                className='h-5 w-5 mt-0.5 flex-shrink-0 text-primary'
+                className='h-5 w-5 mt-0.5 flex-shrink-0 text-brand-text'
               />
               <p className='text-sm text-muted-foreground leading-relaxed'>
                 <span className='font-semibold text-foreground'>

@@ -14,8 +14,7 @@ import {
   TableIcon,
 } from "@radix-ui/react-icons";
 import { SCHOOLYN_URL } from "@/components/SchoolynSpotlight";
-import Reveal from "@/components/Reveal";
-import { useReveal } from "@/hooks/use-in-view";
+import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 
 const codebaseStats = [
   { value: "270+", label: "commits" },
@@ -106,70 +105,70 @@ const productTimeline = [
 ];
 
 const SchoolynExperience = () => {
-  const ref = useReveal<HTMLDivElement>();
-
   return (
-    <Card
-      ref={ref}
-      data-reveal=''
-      className='glass-card relative overflow-hidden'>
+    <Card className='glass-card relative overflow-hidden'>
       <div
         aria-hidden='true'
         className='pointer-events-none absolute inset-0 ambient-spot'
       />
       <div
         aria-hidden='true'
-        className='absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-electric-blue'
+        className='absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-violet'
       />
       <CardContent className='relative p-6 sm:p-8 lg:p-10'>
-        {/* Role header */}
-        <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6'>
-          <div className='flex items-start gap-3'>
-            <div className='p-2 bg-primary/10 rounded-lg text-primary'>
-              <RocketIcon className='h-5 w-5' />
+        <Reveal>
+          {/* Role header */}
+          <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6'>
+            <div className='flex items-start gap-3'>
+              <div className='p-2 bg-primary/10 rounded-lg text-brand-text'>
+                <RocketIcon className='h-5 w-5' />
+              </div>
+              <div>
+                <h3 className='font-semibold text-xl sm:text-2xl'>
+                  Creator & Full-Stack Developer
+                </h3>
+                <p className='text-brand-text font-medium'>
+                  Schoolyn{" "}
+                  <span className='text-muted-foreground font-normal'>
+                    (formerly EduTrack)
+                  </span>
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className='font-semibold text-xl sm:text-2xl'>
-                Creator & Full-Stack Developer
-              </h3>
-              <p className='text-primary font-medium'>
-                Schoolyn{" "}
-                <span className='text-muted-foreground font-normal'>
-                  (formerly EduTrack)
-                </span>
-              </p>
+            <div className='flex items-center gap-3 sm:flex-col sm:items-end'>
+              <Badge>2024 – Present</Badge>
+              <a
+                href={SCHOOLYN_URL}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='flex items-center gap-1.5 text-sm text-muted-foreground hover:text-brand-text transition-colors'>
+                schoolyn.academy
+                <ExternalLinkIcon aria-hidden='true' className='h-3.5 w-3.5' />
+              </a>
             </div>
           </div>
-          <div className='flex items-center gap-3 sm:flex-col sm:items-end'>
-            <Badge>2024 – Present</Badge>
-            <a
-              href={SCHOOLYN_URL}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors'>
-              schoolyn.academy
-              <ExternalLinkIcon aria-hidden='true' className='h-3.5 w-3.5' />
-            </a>
-          </div>
-        </div>
 
-        <p className='text-muted-foreground leading-relaxed max-w-3xl mb-8'>
-          I design, build, and maintain Schoolyn on my own, from the database
-          schema and backend logic to the UI and the production server. Working
-          on one product for a long time has taught me to think carefully about
-          permissions, keeping each school&apos;s data separate, and shipping
-          changes safely to a live app.
-        </p>
+          <p className='text-muted-foreground leading-relaxed max-w-3xl mb-8'>
+            I design, build, and maintain Schoolyn on my own, from the database
+            schema and backend logic to the UI and the production server. Working
+            on one product for a long time has taught me to think carefully about
+            permissions, keeping each school&apos;s data separate, and shipping
+            changes safely to a live app.
+          </p>
+        </Reveal>
 
         {/* Codebase stats */}
-        <dl className='grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10'>
+        <Reveal
+          as='dl'
+          stagger
+          className='grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10'>
           {codebaseStats.map((stat) => (
             <div
               key={stat.label}
               className='rounded-lg border border-border/70 bg-background/40 px-4 py-4 text-center'>
               <dt className='sr-only'>{stat.label}</dt>
               <dd>
-                <span className='block text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-electric-blue bg-clip-text text-transparent'>
+                <span className='block text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-violet-text bg-clip-text text-transparent'>
                   {stat.value}
                 </span>
                 <span className='text-sm text-muted-foreground'>
@@ -178,7 +177,7 @@ const SchoolynExperience = () => {
               </dd>
             </div>
           ))}
-        </dl>
+        </Reveal>
 
         {/* Contribution areas */}
         <h4 className='text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4'>
@@ -189,10 +188,10 @@ const SchoolynExperience = () => {
             <Reveal
               as='li'
               key={area.title}
-              delay={(index % 3) * 70}
+              delay={(index % 3) * STAGGER_STEP_MS}
               className='rounded-lg border border-border/80 bg-background/30 p-5 glow-hover'>
               <div className='flex items-center gap-2 mb-3'>
-                <span aria-hidden='true' className='text-primary'>
+                <span aria-hidden='true' className='text-brand-text'>
                   {area.icon}
                 </span>
                 <p className='font-semibold'>{area.title}</p>
@@ -214,14 +213,15 @@ const SchoolynExperience = () => {
         <h4 className='text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4'>
           How the product grew
         </h4>
-        <ol className='grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <Reveal
+          as='ol'
+          stagger
+          className='grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
           {productTimeline.map((step, index) => (
-            <Reveal
-              as='li'
+            <li
               key={step.title}
-              delay={index * 80}
               className='relative rounded-lg bg-muted/40 p-5 border-t-2 border-primary'>
-              <p className='text-xs font-semibold text-primary mb-1'>
+              <p className='text-xs font-semibold text-brand-text mb-1'>
                 <span className='sr-only'>Step {index + 1}: </span>
                 {step.period}
               </p>
@@ -229,9 +229,9 @@ const SchoolynExperience = () => {
               <p className='text-sm text-muted-foreground leading-relaxed'>
                 {step.text}
               </p>
-            </Reveal>
+            </li>
           ))}
-        </ol>
+        </Reveal>
       </CardContent>
     </Card>
   );

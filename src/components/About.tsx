@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import Reveal from "@/components/Reveal";
+import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import {
   CheckCircledIcon,
@@ -27,7 +27,6 @@ import {
   SiGit,
   SiGithub,
   SiSupabase,
-  SiStripe,
   SiClerk,
   SiZod,
   SiExpo,
@@ -86,9 +85,8 @@ const skillGroups: SkillGroup[] = [
   {
     title: "Auth, Payments & Services",
     skills: [
-      { name: "NextAuth", icon: <LockClosedIcon className='text-primary' /> },
+      { name: "NextAuth", icon: <LockClosedIcon className='text-brand-text' /> },
       { name: "Clerk", icon: <SiClerk className='text-violet-500' /> },
-      { name: "Stripe", icon: <SiStripe className='text-indigo-500' /> },
       { name: "Cloudinary", icon: <SiCloudinary className='text-blue-500' /> },
     ],
   },
@@ -120,7 +118,7 @@ const skillGroups: SkillGroup[] = [
         name: "Vercel",
         icon: <SiVercel className='text-black dark:text-white' />,
       },
-      { name: "Cron jobs", icon: <ClockIcon className='text-primary' /> },
+      { name: "Cron jobs", icon: <ClockIcon className='text-brand-text' /> },
     ],
     familiar: ["Docker", "Neon (serverless Postgres)"],
   },
@@ -171,7 +169,7 @@ const About = () => {
             <Reveal>
               <Card className='glass-card'>
                 <CardContent className='p-6 sm:p-8'>
-                  <h3 className='text-2xl font-semibold mb-4 text-primary'>
+                  <h3 className='text-2xl font-semibold mb-4 text-brand-text'>
                     Full-Stack Developer & Product Builder
                   </h3>
                   <div className='space-y-4 text-muted-foreground leading-relaxed'>
@@ -208,7 +206,7 @@ const About = () => {
               </Card>
             </Reveal>
 
-            <Reveal delay={100}>
+            <Reveal delay={STAGGER_STEP_MS}>
               <Card className='glass-card'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-xl font-semibold mb-5'>How I work</h3>
@@ -217,7 +215,7 @@ const About = () => {
                       <li key={item.title} className='flex gap-3'>
                         <CheckCircledIcon
                           aria-hidden='true'
-                          className='h-5 w-5 mt-0.5 flex-shrink-0 text-primary'
+                          className='h-5 w-5 mt-0.5 flex-shrink-0 text-brand-text'
                         />
                         <div>
                           <p className='font-medium'>{item.title}</p>
@@ -236,7 +234,7 @@ const About = () => {
           {/* Skills */}
           <div className='space-y-8'>
             <Reveal>
-              <h3 className='text-2xl font-semibold text-primary mb-2'>
+              <h3 className='text-2xl font-semibold text-brand-text mb-2'>
                 Skills & Tools
               </h3>
               <p className='text-muted-foreground'>
@@ -244,7 +242,9 @@ const About = () => {
               </p>
             </Reveal>
             {skillGroups.map((group, index) => (
-              <Reveal key={group.title} delay={Math.min(index, 3) * 60}>
+              <Reveal
+                key={group.title}
+                delay={Math.min(index, 4) * STAGGER_STEP_MS}>
                 <h4
                   className={`text-sm font-semibold uppercase tracking-wider text-muted-foreground ${
                     group.note ? "mb-1" : "mb-3"

@@ -13,7 +13,7 @@ const Experience = () => {
       id: 2,
       title: "BlogSphere Platform",
       company: "Personal Project",
-      period: "2024",
+      period: "2025",
       type: "project",
       description:
         "Developed a modern blog platform with dynamic post creation, user interactions, and optimized performance using Next.js and PostgreSQL.",
@@ -32,14 +32,13 @@ const Experience = () => {
       id: 3,
       title: "Foodie-POS System",
       company: "SaaS Project",
-      period: "2024",
+      period: "2024 – Present",
       type: "project",
       description:
-        "Created a complete restaurant POS system with QR code ordering, real-time tracking, and payment integration using Stripe.",
+        "Restaurant ordering, order tracking, and payment recording.",
       technologies: [
         "Next.js",
         "Material UI",
-        "Stripe",
         "Prisma",
         "PostgreSQL",
         "Zod",
@@ -53,7 +52,7 @@ const Experience = () => {
       id: 4,
       title: "Marketplace App",
       company: "Personal Project",
-      period: "2025",
+      period: "2025 – 2026",
       type: "project",
       description:
         "Built a modern buy-and-sell marketplace with Next.js, Prisma, and PostgreSQL. Features real-time listings, categories, search, user interactions, and seamless transaction management.",
@@ -74,7 +73,7 @@ const Experience = () => {
       id: 5,
       title: "Full Stack Development Journey",
       company: "Self-taught Developer",
-      period: "2023 - Present",
+      period: "2022 – Present",
       type: "learning",
       description:
         "Intensive self-study and hands-on practice with modern web technologies, focusing on React ecosystem and full-stack development.",
@@ -122,7 +121,7 @@ const Experience = () => {
           {/* Timeline */}
           <div className='relative max-w-4xl mx-auto'>
             {/* Timeline Line */}
-            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-primary/70 via-electric-blue/50 to-transparent'></div>
+            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-primary/70 via-violet/50 to-transparent'></div>
 
             <div className='space-y-12'>
               {timeline.map((item, index) => (
@@ -132,7 +131,7 @@ const Experience = () => {
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}>
                   {/* Timeline Node */}
-                  <div className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-electric-blue rounded-full border-4 border-background ring-4 ring-primary/15 z-10'></div>
+                  <div className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-violet rounded-full border-4 border-background ring-4 ring-primary/15 z-10'></div>
 
                   {/* Content Card */}
                   <div
@@ -144,14 +143,14 @@ const Experience = () => {
                         {/* Header */}
                         <div className='flex items-start justify-between mb-4'>
                           <div className='flex items-center gap-3'>
-                            <div className='p-2 bg-primary/10 rounded-lg text-primary'>
+                            <div className='p-2 bg-primary/10 rounded-lg text-brand-text'>
                               {item.icon}
                             </div>
                             <div>
                               <h3 className='font-semibold text-lg'>
                                 {item.title}
                               </h3>
-                              <p className='text-primary font-medium'>
+                              <p className='text-brand-text font-medium'>
                                 {item.company}
                               </p>
                             </div>

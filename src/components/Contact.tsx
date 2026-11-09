@@ -13,7 +13,7 @@ import {
   CheckCircledIcon,
 } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
-import Reveal from "@/components/Reveal";
+import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import emailjs from "@emailjs/browser";
 
@@ -48,7 +48,7 @@ const Contact = () => {
           from_name: formData.name,
           to_name: "Luumin",
           from_email: formData.email,
-          to_email: "luumin369@gmail.com",
+          to_email: "linnmu2030@gmail.com",
           message: formData.message,
         },
         "4T4YvwSuFzD5YAKyP"
@@ -179,7 +179,7 @@ const Contact = () => {
             </Reveal>
 
             {/* Contact Info & Social Links */}
-            <Reveal delay={100} className='space-y-8'>
+            <Reveal delay={STAGGER_STEP_MS} className='space-y-8'>
               <Card className='glass-card'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-2xl font-semibold mb-4'>Let&apos;s Connect</h3>
@@ -201,7 +201,7 @@ const Contact = () => {
                             : undefined
                         }
                         className='flex items-center gap-4 p-4 rounded-lg border border-transparent bg-muted/50 transition-colors duration-200 hover:bg-muted hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
-                        <div className='text-primary'>{link.icon}</div>
+                        <div className='text-brand-text'>{link.icon}</div>
                         <div className='min-w-0'>
                           <p className='font-medium'>{link.name}</p>
                           <p className='text-sm text-muted-foreground break-all'>
@@ -223,7 +223,7 @@ const Contact = () => {
                       <li key={item} className='flex items-center gap-3'>
                         <CheckCircledIcon
                           aria-hidden='true'
-                          className='h-4 w-4 flex-shrink-0 text-primary'
+                          className='h-4 w-4 flex-shrink-0 text-brand-text'
                         />
                         {item}
                       </li>

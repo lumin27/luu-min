@@ -6,23 +6,46 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { useReveal } from "@/hooks/use-in-view";
 
+/** Matches `--stagger-step` in globals.css; use for `delay` on sibling reveals. */
+export const STAGGER_STEP_MS = 70;
+
 type RevealProps = HTMLAttributes<HTMLElement> & {
-  as?: "div" | "li" | "article" | "figure";
+  as?: "div" | "li" | "ul" | "ol" | "dl" | "article" | "figure";
+  /** Reveal the single child element itself (e.g. a Card) instead of a wrapper. */
+  asChild?: boolean;
+  /** `rise` (default) for content, `scale` for screenshots, `fade` for large blocks. */
+  variant?: "rise" | "fade" | "scale";
+  /** Reveal the direct children one after another instead of the element itself. */
+  stagger?: boolean;
   delay?: number;
   children: ReactNode;
 };
 
-const Reveal = ({ as = "div", delay = 0, style, ...rest }: RevealProps) => {
+const Reveal = ({
+  as = "div",
+  asChild = false,
+  variant = "rise",
+  stagger = false,
+  delay = 0,
+  style,
+  ...rest
+}: RevealProps) => {
   const ref = useReveal<HTMLElement>();
 
-  return createElement(as, {
+  const props = {
     ...rest,
     ref,
-    "data-reveal": "",
-    style: { ...style, "--reveal-delay": `${delay}ms` } as CSSProperties,
-  });
+    "data-reveal": variant,
+    ...(stagger ? { "data-reveal-stagger": "" } : {}),
+    style: delay
+      ? ({ ...style, "--reveal-delay": `${delay}ms` } as CSSProperties)
+      : style,
+  };
+
+  return asChild ? <Slot {...props} /> : createElement(as, props);
 };
 
 export default Reveal;

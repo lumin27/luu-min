@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { useReveal } from "@/hooks/use-in-view";
+import Reveal from "@/components/Reveal";
+import MediaFrame from "@/components/motion/MediaFrame";
 import { Badge } from "@/components/ui/badge";
 import { CheckIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
@@ -68,16 +69,11 @@ const screenshots = [
 ];
 
 const SchoolynMobile = () => {
-  const ref = useReveal<HTMLDivElement>();
-
   return (
-    <Card
-      ref={ref}
-      data-reveal=''
-      className='glass-card glow-hover mb-12 lg:mb-16'>
+    <Card className='glass-card glow-hover media-group mb-12 lg:mb-16'>
       <CardContent className='p-6 sm:p-8 lg:p-10'>
         <div className='grid lg:grid-cols-2 gap-8 lg:gap-10 items-start'>
-          <div>
+          <Reveal stagger>
             <div className='flex flex-wrap gap-2 mb-4'>
               <Badge
                 variant='outline'
@@ -88,7 +84,7 @@ const SchoolynMobile = () => {
                 />
                 In Development &mdash; Not Yet Released
               </Badge>
-              <Badge variant='outline' className='border-primary/40 text-primary'>
+              <Badge variant='outline' className='border-primary/40 text-brand-text'>
                 Companion to Schoolyn
               </Badge>
             </div>
@@ -96,7 +92,7 @@ const SchoolynMobile = () => {
             <h3 className='text-2xl sm:text-3xl font-bold mb-2'>
               Schoolyn Mobile
             </h3>
-            <p className='text-lg text-primary font-medium mb-4'>
+            <p className='text-lg text-brand-text font-medium mb-4'>
               iOS & Android app for parents, students, and teachers
             </p>
             <p className='text-muted-foreground leading-relaxed mb-6'>
@@ -132,7 +128,7 @@ const SchoolynMobile = () => {
                       <li key={item} className='flex gap-2 text-sm leading-relaxed'>
                         <CheckIcon
                           aria-hidden='true'
-                          className='h-4 w-4 mt-0.5 flex-shrink-0 text-primary'
+                          className='h-4 w-4 mt-0.5 flex-shrink-0 text-brand-text'
                         />
                         <span>{item}</span>
                       </li>
@@ -164,13 +160,17 @@ const SchoolynMobile = () => {
               <LockClosedIcon aria-hidden='true' className='h-4 w-4' />
               Source code private
             </span>
-          </div>
+          </Reveal>
 
           <figure>
-            <ul className='grid grid-cols-3 gap-3 sm:gap-4'>
+            <Reveal
+              as='ul'
+              stagger
+              variant='scale'
+              className='grid grid-cols-3 gap-3 sm:gap-4 media-parallax'>
               {screenshots.map((shot) => (
                 <li key={shot.src} className='text-center'>
-                  <div className='relative aspect-[1206/2622] overflow-hidden rounded-[1.25rem] border-[5px] border-navy-light dark:border-border bg-muted shadow-[0_20px_40px_-20px_hsl(0_0%_0%/0.6)]'>
+                  <MediaFrame kind='phone'>
                     <Image
                       src={shot.src}
                       alt={shot.alt}
@@ -178,13 +178,13 @@ const SchoolynMobile = () => {
                       sizes='(min-width: 1024px) 180px, 30vw'
                       className='object-cover'
                     />
-                  </div>
+                  </MediaFrame>
                   <p className='mt-2 text-xs text-muted-foreground'>
                     {shot.caption}
                   </p>
                 </li>
               ))}
-            </ul>
+            </Reveal>
             <figcaption className='mt-4 text-xs text-muted-foreground text-center'>
               Screenshots from a development build in the iOS Simulator, using
               the Schoolyn demo school&apos;s sample data.

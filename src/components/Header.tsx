@@ -11,26 +11,30 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useTheme } from "./theme-provider";
+import { useActiveSection } from "@/hooks/use-in-view";
 import Image from "next/image";
+
+const navItems = [
+  { name: "Home", id: "hero" },
+  { name: "About", id: "about" },
+  { name: "Projects", id: "projects" },
+  { name: "Experience", id: "experience" },
+  { name: "Services", id: "services" },
+  { name: "Contact", id: "contact" },
+];
+const sectionIds = navItems.map((item) => item.id);
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const activeSection = useActiveSection(sectionIds);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navItems = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
-  ];
 
   return (
     <header
@@ -46,7 +50,7 @@ const Header = () => {
             href='#hero'
             className='flex-shrink-0 flex items-center space-x-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
             <Image src='/favicon.ico' alt='' width={25} height={25} />
-            <span className='text-xl font-bold bg-gradient-to-r from-primary to-electric-blue bg-clip-text text-transparent'>
+            <span className='text-xl font-bold bg-gradient-to-r from-primary to-violet-text bg-clip-text text-transparent'>
               Luu Min
             </span>
           </a>
@@ -56,12 +60,13 @@ const Header = () => {
             {navItems.map((item) => (
               <a
                 key={item.name}
-                href={item.href}
-                className='text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background'>
+                href={`#${item.id}`}
+                aria-current={activeSection === item.id ? "true" : undefined}
+                className='text-sm font-medium text-muted-foreground hover:text-foreground aria-[current=true]:text-foreground transition-colors duration-fast ease-standard relative group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background'>
                 {item.name}
                 <span
                   aria-hidden='true'
-                  className='absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100'
+                  className='absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-primary transition-transform duration-base ease-out-expo group-hover:scale-x-100 group-aria-[current=true]:scale-x-100'
                 />
               </a>
             ))}
@@ -73,7 +78,7 @@ const Header = () => {
               variant='ghost'
               size='icon'
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className='hover:bg-primary/10 hover:text-primary'>
+              className='hover:bg-primary/10 hover:text-brand-text'>
               <SunIcon className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
               <MoonIcon className='absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
               <span className='sr-only'>Toggle theme</span>
@@ -90,11 +95,15 @@ const Header = () => {
                 <nav
                   aria-label='Mobile'
                   className='flex flex-col space-y-6 mt-8'>
-                  {navItems.map((item) => (
+                  {navItems.map((item, index) => (
                     <SheetClose asChild key={item.name}>
                       <a
-                        href={item.href}
-                        className='text-left text-lg text-muted-foreground hover:text-primary transition-colors duration-200'>
+                        href={`#${item.id}`}
+                        aria-current={
+                          activeSection === item.id ? "true" : undefined
+                        }
+                        style={{ animationDelay: `${80 + index * 40}ms` }}
+                        className='text-left text-lg text-muted-foreground hover:text-brand-text aria-[current=true]:text-brand-text aria-[current=true]:font-medium transition-colors animate-in fade-in-0 slide-in-from-right-4 fill-mode-both duration-base ease-out-expo'>
                         {item.name}
                       </a>
                     </SheetClose>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,10 +9,11 @@ import {
   GitHubLogoIcon,
   LockClosedIcon,
 } from "@radix-ui/react-icons";
-import Reveal from "@/components/Reveal";
+import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import SchoolynSpotlight from "@/components/SchoolynSpotlight";
 import SchoolynMobile from "@/components/SchoolynMobile";
+import SpotlightSurface from "@/components/motion/SpotlightSurface";
 
 type Project = {
   id: number;
@@ -39,7 +40,7 @@ const projects: Project[] = [
     features: [
       "QR-code ordering for customers",
       "Real-time order tracking",
-      "Payment integration with Stripe",
+      "Records payments by method, including cash, card, and mobile wallet",
       "Authentication with NextAuth and image storage with Vercel Blob",
     ],
     role: "Personal project, built end to end and deployed on Vercel.",
@@ -50,7 +51,6 @@ const projects: Project[] = [
       "Prisma",
       "PostgreSQL",
       "NextAuth",
-      "Stripe",
       "Zod",
       "Vercel Blob",
     ],
@@ -140,17 +140,17 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Reveal
                 key={project.id}
-                delay={index * 80}
+                delay={(index % 3) * STAGGER_STEP_MS}
                 className='flex md:last:col-span-2 xl:last:col-span-1'>
-                <Card className='glass-card lift-hover flex flex-col w-full'>
+                <SpotlightSurface className='flex flex-col w-full'>
                   <CardHeader className='pb-4'>
                     <Badge
                       variant='outline'
-                      className='w-fit mb-3 border-primary/40 text-primary'>
+                      className='w-fit mb-3 border-primary/40 text-brand-text'>
                       {project.category}
                     </Badge>
                     <CardTitle className='text-2xl'>{project.title}</CardTitle>
-                    <p className='text-base sm:text-lg text-primary font-medium'>
+                    <p className='text-base sm:text-lg text-brand-text font-medium'>
                       {project.subtitle}
                     </p>
                     <p className='text-muted-foreground leading-relaxed pt-2'>
@@ -170,7 +170,7 @@ const Projects = () => {
                             className='flex gap-2 text-sm leading-relaxed'>
                             <CheckIcon
                               aria-hidden='true'
-                              className='h-4 w-4 mt-0.5 flex-shrink-0 text-primary'
+                              className='h-4 w-4 mt-0.5 flex-shrink-0 text-brand-text'
                             />
                             <span>{feature}</span>
                           </li>
@@ -246,7 +246,7 @@ const Projects = () => {
                       )}
                     </div>
                   </CardContent>
-                </Card>
+                </SpotlightSurface>
               </Reveal>
             ))}
           </div>

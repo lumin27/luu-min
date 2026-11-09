@@ -6,44 +6,55 @@
 
 @layer base {
   :root {
-    /* Modern Professional Theme */
+    /* Light theme: same blue/violet brand, darker steps for text contrast. */
     --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
+    --foreground: 222 47.4% 11.2%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
+    --card-foreground: 222 47.4% 11.2%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
+    --popover-foreground: 222 47.4% 11.2%;
 
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 221 83.2% 53.3%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47.4% 11.2%;
 
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 19.3% 34.5%;
 
-    --accent: 213 27.8% 84.3%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 220.9 39.3% 11%;
+    --border: 214 31.8% 91.4%;
+    --input: 216 16.4% 55.9%;
+    --ring: 221 83.2% 53.3%;
 
     --radius: 0.75rem;
 
-    /* Custom Portfolio Colors */
-    --electric-blue: 217 91% 60%;
+    /* Brand: `electric-blue`/`gradient-*` feed glows; `brand-text`/`violet-text` are for small text. */
+    --electric-blue: 217 91.2% 59.8%;
     --electric-blue-light: 217 91% 85%;
+    --brand-text: 221 83.2% 53.3%;
+    --violet: 262 83.3% 57.8%;
+    --violet-text: 262 83.3% 57.8%;
+    --surface-raised: 210 40% 96.1%;
     --navy-deep: 220 39% 11%;
     --navy-light: 220 39% 25%;
-    --gradient-start: 217 91% 60%;
-    --gradient-end: 261 73% 65%;
+    --gradient-start: 217 91.2% 59.8%;
+    --gradient-end: 258 89.5% 66.3%;
+
+    /* Hero aurora strengths, tuned per theme. */
+    --aurora-blue: 0.12;
+    --aurora-violet: 0.1;
+    --aurora-top: 0.07;
+    --aurora-dots: 0.09;
+    --aurora-spot: 0.1;
     --glass-bg: 220 39% 11% / 0.1;
     --glow-color: 217 91% 60% / 0.3;
 
@@ -70,9 +81,20 @@
     --shadow-card: 0 4px 6px -1px hsl(var(--navy-deep) / 0.1),
       0 2px 4px -2px hsl(var(--navy-deep) / 0.1);
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Motion system — every animation and transition draws from these. */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --dur-press: 120ms;
+    --dur-fast: 180ms;
+    --dur-base: 280ms;
+    --dur-slow: 600ms;
+    --dur-swap: 400ms;
+    --dur-menu-in: 320ms;
+    --dur-menu-out: 220ms;
+    --stagger-step: 70ms;
+    --reveal-distance: 12px;
+    --dur-ambient: 24s;
 
     --sidebar-background: 0 0% 98%;
 
@@ -92,34 +114,45 @@
   }
 
   .dark {
-    /* Dark Theme Professional */
-    --background: 220 39% 11%;
-    --foreground: 210 20% 98%;
+    /* Dark theme: deep navy surfaces with the blue/violet brand. */
+    --background: 225 50% 7.8%;
+    --foreground: 210 40% 98%;
 
-    --card: 220 39% 15%;
-    --card-foreground: 210 20% 98%;
+    --card: 221 46% 12.4%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 220 39% 15%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 221 46% 12.4%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 220 39% 11%;
+    --primary: 217 91.2% 59.8%;
+    --primary-foreground: 225 50% 7.8%;
 
-    --secondary: 220 39% 25%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 222 45% 15.7%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 220 39% 20%;
-    --muted-foreground: 220 14% 71%;
+    --muted: 222 45% 15.7%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 220 39% 11%;
+    --accent: 222 45% 15.7%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
 
-    --border: 220 39% 25%;
-    --input: 220 39% 25%;
-    --ring: 217 91% 60%;
+    --border: 220 38.7% 21.8%;
+    --input: 220 21.2% 45.3%;
+    --ring: 213 93.9% 67.8%;
+
+    --brand-text: 213 93.9% 67.8%;
+    --violet: 258 89.5% 66.3%;
+    --violet-text: 255 91.7% 76.3%;
+    --surface-raised: 222 45% 15.7%;
+
+    --aurora-blue: 0.2;
+    --aurora-violet: 0.16;
+    --aurora-top: 0.1;
+    --aurora-dots: 0.07;
+    --aurora-spot: 0.13;
 
     /* Dark Custom Colors */
     --glass-bg: 210 20% 98% / 0.05;
@@ -155,6 +188,12 @@
     scroll-margin-top: 4rem;
   }
 
+  @media (min-width: 640px) {
+    :root {
+      --reveal-distance: 16px;
+    }
+  }
+
   ::selection {
     background: hsl(var(--electric-blue) / 0.3);
   }
@@ -174,99 +213,52 @@
   }
 }
 
-/* Portfolio Animation Keyframes */
-@keyframes fade-in {
+/* Scroll reveal keyframes (see the reveal system below). */
+@keyframes reveal-in {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: var(--reveal-from);
+  }
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes media-parallax {
+  from {
+    translate: 0 12px;
+  }
+  to {
+    translate: 0 -12px;
+  }
+}
+
+@keyframes hero-spotlight-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-14%, -10%, 0) rotate(-16deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) rotate(-16deg);
   }
 }
 
-@keyframes slide-up {
+@keyframes ambient-drift {
   from {
-    opacity: 0;
-    transform: translateY(40px);
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: hsl(var(--primary));
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes glow-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 20px hsl(var(--electric-blue) / 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--electric-blue) / 0.6);
-  }
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    transform: translate3d(2%, 1.5%, 0) scale(1.06);
   }
 }
 
 /* Portfolio Utility Classes */
 @layer components {
-  .hero-gradient {
-    background: var(--gradient-primary);
-    background-size: 400% 400%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
   /* Solid surface; the page background is opaque, so a backdrop blur adds cost without visual benefit. */
   .glass-card {
     background-color: hsl(var(--card));
@@ -274,60 +266,252 @@
     box-shadow: var(--shadow-card);
   }
 
-  .glow-hover {
-    transition-property: border-color, box-shadow, background-color;
-    transition-duration: 250ms;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  /*
+   * Card hover: the glow is pre-drawn on ::after and only its opacity animates,
+   * so large cards are not repainted every frame. Keyboard focus inside a card
+   * gets the same feedback as hover.
+   */
+  .glow-hover,
+  .lift-hover {
+    position: relative;
+    transition-property: border-color, background-color, transform;
+    transition-duration: var(--dur-base);
+    transition-timing-function: var(--ease-standard);
   }
 
-  .lift-hover {
-    transition-property: border-color, box-shadow, background-color, transform;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  .glow-hover::after,
+  .lift-hover::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      0 0 0 1px hsl(var(--electric-blue) / 0.1),
+      0 18px 40px -20px hsl(var(--electric-blue) / 0.45);
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-standard);
+  }
+
+  .glow-hover:focus-within,
+  .lift-hover:focus-within {
+    border-color: hsl(var(--electric-blue) / 0.4);
+  }
+
+  .glow-hover:focus-within::after,
+  .lift-hover:focus-within::after {
+    opacity: 1;
+  }
+
+  .lift-hover:focus-within {
+    transform: translate3d(0, -3px, 0);
   }
 
   @media (hover: hover) {
     .glow-hover:hover,
     .lift-hover:hover {
       border-color: hsl(var(--electric-blue) / 0.4);
-      box-shadow:
-        0 0 0 1px hsl(var(--electric-blue) / 0.08),
-        0 18px 40px -20px hsl(var(--electric-blue) / 0.45);
+    }
+
+    .glow-hover:hover::after,
+    .lift-hover:hover::after {
+      opacity: 1;
     }
 
     .lift-hover:hover {
-      transform: translate3d(0, -4px, 0);
+      transform: translate3d(0, -3px, 0);
     }
   }
 
-  /* Scroll reveal: hidden until the element has been in view once (see use-in-view). */
-  [data-reveal] {
+  /* Featured project shell (FeaturedProject.tsx): a stronger glow on hover/focus. */
+  .featured-shell {
+    position: relative;
+  }
+
+  .featured-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 40px 110px -40px hsl(var(--electric-blue) / 0.75);
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
-    transition:
-      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: var(--reveal-delay, 0ms);
+    transition: opacity var(--dur-slow) var(--ease-standard);
   }
 
-  [data-reveal][data-revealed] {
+  .featured-shell:focus-within::after {
     opacity: 1;
-    transform: none;
   }
 
-  /* Restrained static lighting; gradients only, no blur filters or animation. */
+  @media (hover: hover) {
+    .featured-shell:hover::after {
+      opacity: 1;
+    }
+  }
+
+  /* Screenshot zoom inside a clipped MediaFrame, driven by its `.media-group`. */
+  .media-zoom {
+    transition: transform var(--dur-slow) var(--ease-out-expo);
+  }
+
+  .media-group:focus-within .media-zoom {
+    transform: scale(1.03);
+  }
+
+  @media (hover: hover) {
+    .media-group:hover .media-zoom {
+      transform: scale(1.03);
+    }
+  }
+
+  /*
+   * Scroll-linked drift for screenshots, only where CSS scroll-driven animations
+   * exist. Uses `translate` so it composes with reveal and zoom transforms.
+   */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .media-parallax {
+        animation: media-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+
+  /*
+   * Scroll reveal (see Reveal.tsx and use-in-view.ts).
+   * Content is only hidden once the inline head script has added `motion-ready`,
+   * so it stays visible without JavaScript. If the reveal observer never starts
+   * (`reveal-active` missing), the fail-safe shows everything after 2.5s.
+   * The entrance is an animation with `backwards` fill rather than a transition,
+   * so it never overrides the element's own hover transitions once it finishes.
+   */
+  [data-reveal],
+  [data-reveal="rise"] {
+    --reveal-from: translate3d(0, var(--reveal-distance), 0);
+  }
+
+  [data-reveal="fade"] {
+    --reveal-from: none;
+  }
+
+  [data-reveal="scale"] {
+    --reveal-from: translate3d(0, calc(var(--reveal-distance) / 2), 0)
+      scale(0.97);
+  }
+
+  [data-reveal-stagger] > :nth-child(2) {
+    --reveal-index: 1;
+  }
+  [data-reveal-stagger] > :nth-child(3) {
+    --reveal-index: 2;
+  }
+  [data-reveal-stagger] > :nth-child(4) {
+    --reveal-index: 3;
+  }
+  [data-reveal-stagger] > :nth-child(n + 5) {
+    --reveal-index: 4;
+  }
+
+  .motion-ready [data-reveal]:not([data-reveal-stagger]):not([data-revealed]),
+  .motion-ready [data-reveal-stagger]:not([data-revealed]) > * {
+    opacity: 0;
+    transform: var(--reveal-from);
+  }
+
+  .motion-ready [data-reveal][data-revealed]:not([data-reveal-stagger]),
+  .motion-ready [data-reveal-stagger][data-revealed] > * {
+    animation: reveal-in var(--dur-slow) var(--ease-out-expo) backwards;
+    animation-delay: calc(
+      var(--reveal-delay, 0ms) + var(--reveal-index, 0) * var(--stagger-step)
+    );
+  }
+
+  .motion-ready:not(.reveal-active) [data-reveal]:not([data-reveal-stagger]),
+  .motion-ready:not(.reveal-active) [data-reveal-stagger] > * {
+    animation: reveal-failsafe 1ms linear 2.5s forwards;
+  }
+
+  /* Hero aurora: static layered light; gradients only, no blur filters or animation. */
   .ambient-hero {
     background:
       radial-gradient(
-        42rem 32rem at 12% 18%,
-        hsl(var(--electric-blue) / 0.16),
+        60% 55% at 15% 20%,
+        hsl(var(--electric-blue) / var(--aurora-blue)),
         transparent 70%
       ),
       radial-gradient(
-        36rem 28rem at 88% 72%,
-        hsl(var(--gradient-end) / 0.1),
+        55% 50% at 88% 72%,
+        hsl(var(--gradient-end) / var(--aurora-violet)),
+        transparent 70%
+      ),
+      radial-gradient(
+        70% 35% at 50% -5%,
+        hsl(var(--gradient-end) / var(--aurora-top)),
         transparent 70%
       );
+  }
+
+  /* Faint dot grid that fades out toward the hero edges. */
+  .hero-grid {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / var(--aurora-dots)) 1px,
+      transparent 1.5px
+    );
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 45%,
+      #000 25%,
+      transparent 75%
+    );
+    mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 45%,
+      #000 25%,
+      transparent 75%
+    );
+  }
+
+  /*
+   * Desktop spotlight (Hero renders it `hidden lg:block`): a pre-drawn beam that
+   * sweeps in once on load and then stays still. Transform and opacity only.
+   */
+  .hero-spotlight {
+    position: absolute;
+    top: -14rem;
+    left: -10rem;
+    width: 72rem;
+    height: 30rem;
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      hsl(var(--electric-blue) / var(--aurora-spot)),
+      hsl(var(--gradient-end) / calc(var(--aurora-spot) * 0.5)) 45%,
+      transparent 72%
+    );
+    transform: rotate(-16deg);
+    animation: hero-spotlight-in 1.6s var(--ease-out-expo) 150ms both;
+  }
+
+  /*
+   * Desktop-only hero drift (the element is `hidden lg:block`): one transform-only
+   * layer on a long, slow loop, paused by Hero while off screen.
+   */
+  .ambient-drift {
+    background:
+      radial-gradient(
+        34rem 26rem at 30% 32%,
+        hsl(var(--electric-blue) / 0.1),
+        transparent 70%
+      ),
+      radial-gradient(
+        28rem 22rem at 72% 66%,
+        hsl(var(--gradient-end) / 0.08),
+        transparent 70%
+      );
+    animation: ambient-drift var(--dur-ambient) ease-in-out infinite alternate;
+  }
+
+  .ambient-drift[data-paused] {
+    animation-play-state: paused;
   }
 
   .ambient-spot {
@@ -351,22 +535,21 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-reveal] {
-      opacity: 1;
-      transform: none;
-      transition: none;
+    .motion-ready [data-reveal]:not([data-reveal-stagger]),
+    .motion-ready [data-reveal-stagger] > * {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
 
-    .lift-hover:hover {
-      transform: none;
+    .lift-hover:hover,
+    .lift-hover:focus-within,
+    .media-group .media-zoom {
+      transform: none !important;
     }
-  }
 
-  .typing-text {
-    overflow: hidden;
-    border-right: 3px solid hsl(var(--primary));
-    white-space: nowrap;
-    margin: 0 auto;
-    animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+    .ambient-drift {
+      animation: none;
+    }
   }
 }
