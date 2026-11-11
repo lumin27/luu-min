@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon, RocketIcon, CodeIcon } from "@radix-ui/react-icons";
@@ -8,6 +9,41 @@ import SectionHeader from "@/components/SectionHeader";
 import SchoolynExperience from "@/components/SchoolynExperience";
 
 const Experience = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+
+  // Draw the timeline line down to a point just below mid-screen, lighting each node it passes.
+  useEffect(() => {
+    const timelineEl = timelineRef.current;
+    const fill = fillRef.current;
+    if (!timelineEl || !fill) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const nodes = Array.from(timelineEl.querySelectorAll<HTMLElement>("[data-node]"));
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = timelineEl.getBoundingClientRect();
+      const reach = window.innerHeight * 0.6 - rect.top;
+      fill.style.setProperty("--tw-scale-y", String(Math.min(1, Math.max(0, reach / rect.height))));
+      nodes.forEach((node) => {
+        const top = node.getBoundingClientRect().top - rect.top;
+        node.toggleAttribute("data-dim", top > reach);
+      });
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+
   const timeline = [
     {
       id: 2,
@@ -119,26 +155,32 @@ const Experience = () => {
           </Reveal>
 
           {/* Timeline */}
-          <div className='relative max-w-4xl mx-auto'>
+          <div ref={timelineRef} className='relative max-w-4xl mx-auto'>
             {/* Timeline Line */}
-            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-gradient-to-b from-primary/70 via-violet/50 to-transparent'></div>
+            <div className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full bg-border/60'></div>
+            <div
+              ref={fillRef}
+              className='absolute left-8 md:left-1/2 transform md:-translate-x-0.5 w-0.5 h-full origin-top bg-gradient-to-b from-primary via-violet to-primary/40 shadow-[0_0_12px_hsl(var(--electric-blue)/0.6)]'></div>
 
             <div className='space-y-12'>
               {timeline.map((item, index) => (
                 <Reveal
                   key={item.id}
+                  variant={index % 2 === 0 ? "left" : "right"}
                   className={`relative flex items-center ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}>
                   {/* Timeline Node */}
-                  <div className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-violet rounded-full border-4 border-background ring-4 ring-primary/15 z-10'></div>
+                  <div
+                    data-node
+                    className='absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-primary to-violet rounded-full border-4 border-background ring-4 ring-primary/25 z-10 transition-[transform,opacity,box-shadow] duration-500 ease-out-expo shadow-[0_0_14px_hsl(var(--electric-blue)/0.7)] data-[dim]:scale-75 data-[dim]:opacity-40 data-[dim]:shadow-none'></div>
 
                   {/* Content Card */}
                   <div
                     className={`ml-16 md:ml-0 w-full md:w-5/12 ${
                       index % 2 === 0 ? "md:pr-8" : "md:pl-8"
                     }`}>
-                    <Card className='glass-card glow-hover'>
+                    <Card className='glass-card glow-hover card-motion' data-tilt='3'>
                       <CardContent className='p-6'>
                         {/* Header */}
                         <div className='flex items-start justify-between mb-4'>

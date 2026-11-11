@@ -83,7 +83,7 @@ export default async function OpengraphImage() {
               fontSize: 28,
               color: "#60A5FA",
             }}>
-            lumin27.com
+            luu-min.vercel.app
           </div>
         </div>
       </div>

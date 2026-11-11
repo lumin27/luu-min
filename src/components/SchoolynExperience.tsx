@@ -15,12 +15,13 @@ import {
 } from "@radix-ui/react-icons";
 import { SCHOOLYN_URL } from "@/components/SchoolynSpotlight";
 import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
+import CountUp from "@/components/reactbits/CountUp";
 
 const codebaseStats = [
-  { value: "270+", label: "commits" },
-  { value: "97", label: "database models" },
-  { value: "120+", label: "Prisma migrations" },
-  { value: "370+", label: "automated test files" },
+  { value: 270, suffix: "+", label: "commits" },
+  { value: 97, label: "database models" },
+  { value: 120, suffix: "+", label: "Prisma migrations" },
+  { value: 370, suffix: "+", label: "automated test files" },
 ];
 
 const contributionAreas: { title: string; icon: ReactNode; points: string[] }[] =
@@ -165,12 +166,14 @@ const SchoolynExperience = () => {
           {codebaseStats.map((stat) => (
             <div
               key={stat.label}
-              className='rounded-lg border border-border/70 bg-background/40 px-4 py-4 text-center'>
+              className='glow-hover card-motion rounded-lg border border-border/70 bg-background/40 px-4 py-4 text-center'>
               <dt className='sr-only'>{stat.label}</dt>
               <dd>
-                <span className='block text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-violet-text bg-clip-text text-transparent'>
-                  {stat.value}
-                </span>
+                <CountUp
+                  to={stat.value}
+                  suffix={stat.suffix}
+                  className='block text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-violet-text bg-clip-text text-transparent'
+                />
                 <span className='text-sm text-muted-foreground'>
                   {stat.label}
                 </span>
@@ -189,9 +192,11 @@ const SchoolynExperience = () => {
               as='li'
               key={area.title}
               delay={(index % 3) * STAGGER_STEP_MS}
-              className='rounded-lg border border-border/80 bg-background/30 p-5 glow-hover'>
+              className='group rounded-lg border border-border/80 bg-background/30 p-5 glow-hover card-motion'>
               <div className='flex items-center gap-2 mb-3'>
-                <span aria-hidden='true' className='text-brand-text'>
+                <span
+                  aria-hidden='true'
+                  className='text-brand-text transition-transform duration-base ease-out-expo group-hover:scale-125 group-hover:-rotate-6'>
                   {area.icon}
                 </span>
                 <p className='font-semibold'>{area.title}</p>
@@ -220,7 +225,7 @@ const SchoolynExperience = () => {
           {productTimeline.map((step, index) => (
             <li
               key={step.title}
-              className='relative rounded-lg bg-muted/40 p-5 border-t-2 border-primary'>
+              className='glow-hover card-motion relative rounded-lg bg-muted/40 p-5 border-t-2 border-primary'>
               <p className='text-xs font-semibold text-brand-text mb-1'>
                 <span className='sr-only'>Step {index + 1}: </span>
                 {step.period}

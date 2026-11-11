@@ -79,10 +79,10 @@ const SchoolynMobile = () => {
               <Badge
                 variant='outline'
                 className='gap-1.5 border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300'>
-                <span
-                  aria-hidden='true'
-                  className='h-1.5 w-1.5 rounded-full bg-amber-500'
-                />
+                <span aria-hidden='true' className='relative flex h-1.5 w-1.5'>
+                  <span className='absolute inset-0 rounded-full bg-amber-500 opacity-75 motion-safe:animate-ping' />
+                  <span className='relative h-1.5 w-1.5 rounded-full bg-amber-500' />
+                </span>
                 In Development &mdash; Not Yet Released
               </Badge>
               <Badge variant='outline' className='border-primary/40 text-brand-text'>
@@ -107,7 +107,7 @@ const SchoolynMobile = () => {
             <h4 className='text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3'>
               Tested on
             </h4>
-            <ul className='flex flex-wrap gap-2 mb-6'>
+            <ul className='list-stagger flex flex-wrap gap-2 mb-6'>
               {testedOn.map((target) => (
                 <li key={target}>
                   <Badge variant='outline' className='text-xs font-medium'>
@@ -124,7 +124,7 @@ const SchoolynMobile = () => {
               {featuresByRole.map((group) => (
                 <div key={group.role}>
                   <p className='text-sm font-semibold mb-1.5'>{group.role}</p>
-                  <ul className='space-y-1.5'>
+                  <ul className='list-stagger space-y-1.5'>
                     {group.items.map((item) => (
                       <li key={item} className='flex gap-2 text-sm leading-relaxed'>
                         <CheckIcon
@@ -147,7 +147,7 @@ const SchoolynMobile = () => {
 
             <ul
               aria-label='Schoolyn Mobile tech stack'
-              className='flex flex-wrap gap-2 mb-5'>
+              className='list-stagger flex flex-wrap gap-2 mb-5'>
               {stack.map((tech) => (
                 <li key={tech}>
                   <Badge variant='secondary' className='text-xs'>
@@ -173,6 +173,7 @@ const SchoolynMobile = () => {
                 <li key={shot.src} className='text-center'>
                   <TiltedCard
                     intro={false}
+                    floating
                     gyroscope={false}
                     rotateAmplitude={10}
                     scaleOnHover={1.04}

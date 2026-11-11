@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import ClientProviders from "@/components/ClientProviders";
 
@@ -9,7 +9,7 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const siteUrl = "https://lumin27.com";
+const siteUrl = "https://luu-min.vercel.app";
 const title = "Luu Min - Full-Stack Developer & Product Builder";
 const description =
   "Luu Min is a Full-Stack Developer & Product Builder who builds practical software products, from SaaS platforms like Schoolyn to mobile applications and custom business tools.";
@@ -34,6 +34,12 @@ export const metadata: Metadata = {
     title,
     description,
   },
+};
+
+export const viewport: Viewport = {
+  // Dark is the default; ThemeProvider rewrites this when the visitor switches theme.
+  themeColor: "#0a0f1e",
+  colorScheme: "dark light",
 };
 
 const personJsonLd = {
@@ -72,6 +78,11 @@ export default function RootLayout({
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
+        <a
+          href='#main'
+          className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background'>
+          Skip to content
+        </a>
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>

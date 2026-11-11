@@ -10,6 +10,7 @@ import {
 import Reveal from "@/components/Reveal";
 import FeaturedProject from "@/components/FeaturedProject";
 import MediaFrame from "@/components/motion/MediaFrame";
+import Magnet from "@/components/reactbits/Magnet";
 
 export const SCHOOLYN_URL = "https://schoolyn.academy/";
 
@@ -44,7 +45,7 @@ const stack = [
 ];
 
 const CheckList = ({ items, columns }: { items: string[]; columns?: boolean }) => (
-  <ul className={columns ? "grid sm:grid-cols-2 gap-x-6 gap-y-2.5" : "space-y-2.5"}>
+  <ul className={`list-stagger ${columns ? "grid sm:grid-cols-2 gap-x-6 gap-y-2.5" : "space-y-2.5"}`}>
     {items.map((item) => (
       <li key={item} className='flex gap-2.5 text-sm leading-relaxed'>
         <CheckIcon
@@ -59,7 +60,7 @@ const CheckList = ({ items, columns }: { items: string[]; columns?: boolean }) =
 
 const SchoolynSpotlight = () => {
   return (
-    <FeaturedProject id='schoolyn' className='mb-10 lg:mb-14 scroll-mt-24'>
+    <FeaturedProject id='schoolyn' className='border-flow border-flow-hover mb-10 lg:mb-14 scroll-mt-24'>
       {/* Product story + visual */}
       <div className='grid lg:grid-cols-2 gap-10 lg:gap-12 items-center'>
         <Reveal stagger>
@@ -74,7 +75,7 @@ const SchoolynSpotlight = () => {
             </Badge>
           </div>
 
-          <h3 className='text-4xl sm:text-5xl font-bold mb-3 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent'>
+          <h3 className='title-shine w-fit text-4xl sm:text-5xl font-bold mb-3'>
             Schoolyn
           </h3>
           <p className='text-lg sm:text-xl text-brand-text font-medium mb-5'>
@@ -117,15 +118,24 @@ const SchoolynSpotlight = () => {
         </Reveal>
 
         <Reveal as='figure' variant='scale' delay={120}>
-          <MediaFrame kind='browser' label='schoolyn.academy' parallax>
-            <Image
-              src='/projects/schoolyn/schoolyn-home.jpg'
-              alt='The Schoolyn homepage at schoolyn.academy, introducing the school administration and billing platform'
-              fill
-              sizes='(min-width: 1280px) 560px, (min-width: 1024px) 45vw, 90vw'
-              className='object-cover object-top'
-            />
-          </MediaFrame>
+          <Magnet
+            padding={0}
+            magnetStrength={40}
+            maxOffset={6}
+            tilt={5}
+            scale={1.015}
+            exclusive={false}
+            style={{ display: "block" }}>
+            <MediaFrame kind='browser' label='schoolyn.academy' parallax>
+              <Image
+                src='/projects/schoolyn/schoolyn-home.jpg'
+                alt='The Schoolyn homepage at schoolyn.academy, introducing the school administration and billing platform'
+                fill
+                sizes='(min-width: 1280px) 560px, (min-width: 1024px) 45vw, 90vw'
+                className='object-cover object-top'
+              />
+            </MediaFrame>
+          </Magnet>
           <figcaption className='mt-3 text-center text-xs text-muted-foreground'>
             The public schoolyn.academy homepage.
           </figcaption>
@@ -156,7 +166,7 @@ const SchoolynSpotlight = () => {
         </p>
         <ul
           aria-label='Schoolyn tech stack'
-          className='flex flex-wrap gap-2 lg:flex-1 lg:justify-end'>
+          className='list-stagger flex flex-wrap gap-2 lg:flex-1 lg:justify-end'>
           {stack.map((tech) => (
             <li key={tech}>
               <Badge variant='secondary' className='text-xs'>

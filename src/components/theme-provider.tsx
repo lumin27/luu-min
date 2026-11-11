@@ -54,7 +54,16 @@ export function ThemeProvider({
     if (theme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
 
-    localStorage.setItem(storageKey, theme);
+    const color = theme === "dark" ? "#0a0f1e" : "#ffffff";
+    document
+      .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
+      .forEach((meta) => meta.setAttribute("content", color));
+
+    try {
+      localStorage.setItem(storageKey, theme);
+    } catch {
+      // Storage can be blocked (privacy modes, some in-app browsers); the theme still applies.
+    }
   }, [theme, storageKey]);
 
   return (

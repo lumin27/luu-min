@@ -6,8 +6,12 @@ import { Button } from "@/components/ui/button";
 import RotatingText from "@/components/motion/RotatingText";
 import GlareHover from "@/components/reactbits/GlareHover";
 import Magnet from "@/components/reactbits/Magnet";
+import DotGrid from "@/components/reactbits/DotGrid";
+import { useTheme } from "@/components/theme-provider";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import {
   ArrowDownIcon,
+  DownloadIcon,
   EnvelopeClosedIcon,
   GitHubLogoIcon,
   LinkedInLogoIcon,
@@ -42,9 +46,16 @@ const phoneBreaks = ["& ", "AI-Assisted "];
 
 const entrance = (delay: number) => ({ animationDelay: `${delay}ms` });
 
+const dotColors = {
+  dark: { base: "#1e2b47", active: "#7cb4ff" },
+  light: { base: "#cfd8e6", active: "#2563eb" },
+};
+
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const driftRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const interactiveDots = useMediaQuery("(min-width: 1024px) and (pointer: fine)");
 
   // The ambient drift only animates while the hero is on screen.
   useEffect(() => {
@@ -53,6 +64,7 @@ const Hero = () => {
     if (!section || !drift) return;
     const observer = new IntersectionObserver(([entry]) => {
       drift.toggleAttribute("data-paused", !entry.isIntersecting);
+      section.toggleAttribute("data-paused", !entry.isIntersecting);
     });
     observer.observe(section);
     return () => observer.disconnect();
@@ -62,9 +74,24 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id='hero'
-      className='min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 pb-16 lg:pt-16'>
+      className='hero-timeline min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 pb-16 lg:pt-16'>
       <div aria-hidden='true' className='pointer-events-none absolute inset-0 ambient-hero' />
-      <div aria-hidden='true' className='pointer-events-none absolute inset-0 hero-grid' />
+      {interactiveDots ? (
+        <div aria-hidden='true' className='pointer-events-none absolute inset-0 hero-dots'>
+          <DotGrid
+            dotSize={3}
+            gap={21}
+            baseColor={dotColors[theme].base}
+            activeColor={dotColors[theme].active}
+            proximity={150}
+            shockRadius={300}
+            shockStrength={4}
+            glow={0.7}
+          />
+        </div>
+      ) : (
+        <div aria-hidden='true' className='pointer-events-none absolute inset-0 hero-grid' />
+      )}
       <div aria-hidden='true' className='pointer-events-none absolute inset-0 hidden lg:block'>
         <div className='hero-spotlight' />
       </div>
@@ -78,7 +105,7 @@ const Hero = () => {
         className='pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background'
       />
       <div className='relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
-        <div>
+        <div className='hero-scroll-out'>
           <div className='flex flex-col lg:flex-row items-center justify-center gap-8 sm:gap-10 lg:gap-16'>
             {/* Photo: oval frame with a blue-violet ring and a one-time glare sweep. */}
             <div
@@ -118,8 +145,8 @@ const Hero = () => {
               </p>
               <h1
                 style={entrance(120)}
-                className='w-fit mx-auto lg:mx-0 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05] mb-5 pb-1 bg-gradient-to-r from-foreground via-brand-text to-violet-text bg-clip-text text-transparent motion-safe:animate-fade-up'>
-                Luu Min
+                className='w-fit mx-auto lg:mx-0 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05] mb-5 pb-1 motion-safe:animate-fade-up'>
+                <span className='text-gradient-flow'>Luu Min</span>
               </h1>
 
               <p className='sr-only'>{lines.join(". ")}</p>
@@ -198,6 +225,18 @@ const Hero = () => {
                     </a>
                   </li>
                 ))}
+                <li className='flex items-center border-l border-border pl-4'>
+                  <a
+                    href='/Luu_Min_CV.pdf'
+                    download
+                    className='group inline-flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-brand-text hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
+                    <DownloadIcon
+                      aria-hidden='true'
+                      className='h-5 w-5 transition-transform duration-base ease-out-expo motion-safe:group-hover:translate-y-0.5'
+                    />
+                    Download CV
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

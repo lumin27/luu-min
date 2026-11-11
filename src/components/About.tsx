@@ -206,7 +206,7 @@ const About = () => {
           {/* Bio */}
           <div className='space-y-6'>
             <Reveal>
-              <Card className='glass-card'>
+              <Card className='glass-card glow-hover card-motion' data-tilt='1.5'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-2xl font-semibold mb-4 text-brand-text'>
                     Full-Stack Developer & Product Builder
@@ -246,10 +246,10 @@ const About = () => {
             </Reveal>
 
             <Reveal delay={STAGGER_STEP_MS}>
-              <Card className='glass-card'>
+              <Card className='glass-card glow-hover card-motion' data-tilt='2'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-xl font-semibold mb-5'>How I work</h3>
-                  <ul className='space-y-4'>
+                  <ul className='list-stagger space-y-4'>
                     {workingPrinciples.map((item) => (
                       <li key={item.title} className='flex gap-3'>
                         <CheckCircledIcon
@@ -299,10 +299,10 @@ const About = () => {
                   {group.skills.map((skill) => (
                     <li
                       key={skill.name}
-                      className='flex items-center gap-3 px-4 py-3 rounded-lg border border-border/80 bg-card/70 transition-colors duration-200 hover:border-primary/40 hover:bg-card'>
+                      className='card-motion group flex items-center gap-3 px-4 py-3 rounded-lg border border-border/80 bg-card/70 hover:border-primary/40 hover:bg-card hover:shadow-[0_10px_28px_-16px_hsl(var(--electric-blue)/0.7)]'>
                       <span
                         aria-hidden='true'
-                        className='text-2xl flex-shrink-0 [&>svg]:h-6 [&>svg]:w-6'>
+                        className='text-2xl flex-shrink-0 transition-transform duration-base ease-out-expo group-hover:scale-110 group-hover:-rotate-6 [&>svg]:h-6 [&>svg]:w-6'>
                         {skill.icon}
                       </span>
                       <span className='font-medium text-sm sm:text-base truncate'>

@@ -88,12 +88,13 @@ const Services = () => {
               <Reveal
                 as='li'
                 key={service.title}
+                variant='scale'
                 delay={(index % 3) * STAGGER_STEP_MS}
                 className='flex'>
-                <SpotlightSurface className='p-6 flex flex-col w-full'>
+                <SpotlightSurface className='group/svc p-6 flex flex-col w-full'>
                   <div
                     aria-hidden='true'
-                    className='w-fit p-2 mb-4 bg-primary/10 rounded-lg text-brand-text'>
+                    className='w-fit p-2 mb-4 bg-primary/10 rounded-lg text-brand-text transition-[transform,background-color,color,box-shadow] duration-base ease-out-expo group-hover/svc:-rotate-6 group-hover/svc:scale-110 group-hover/svc:bg-gradient-to-br group-hover/svc:from-primary group-hover/svc:to-violet group-hover/svc:text-white group-hover/svc:shadow-[0_8px_20px_-8px_hsl(var(--electric-blue)/0.8)]'>
                     {service.icon}
                   </div>
                   <h3 className='font-semibold text-lg mb-2'>{service.title}</h3>

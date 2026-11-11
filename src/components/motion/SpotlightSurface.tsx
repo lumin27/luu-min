@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Portfolio card surface: React Bits SpotlightCard drawn with the theme's card
- * tokens, a brand-blue pointer light, and a small lift on hover or keyboard focus.
+ * tokens, a brand-blue pointer light, and the shared `card-motion` hover tilt.
  * The light sits behind the children, so content inside must stay transparent.
  */
 const SpotlightSurface = ({ className, style, ...props }: SpotlightCardProps) => {
@@ -24,14 +24,15 @@ const SpotlightSurface = ({ className, style, ...props }: SpotlightCardProps) =>
       borderGlow={0.7}
       proximity={0}
       className={cn(
-        "rounded-xl p-0 text-card-foreground transition-transform duration-base ease-standard motion-safe:focus-within:-translate-y-[3px] motion-safe:[@media(hover:hover)]:hover:-translate-y-[3px]",
+        "card-motion rounded-xl p-0 text-card-foreground",
         className
       )}
       style={
         {
           "--spotlight-card-surface": "hsl(var(--card))",
           "--spotlight-card-border": "hsl(var(--border) / 0.8)",
-          "--spotlight-card-shadow": "var(--shadow-card)",
+          "--spotlight-card-shadow":
+            "var(--card-hover-shadow, var(--shadow-card))",
           ...style,
         } as CSSProperties
       }

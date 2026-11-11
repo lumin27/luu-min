@@ -37,7 +37,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='bg-card border-t border-border'>
+    <footer className='relative bg-card border-t border-border'>
+      <div
+        aria-hidden='true'
+        className='footer-line pointer-events-none absolute inset-x-0 -top-px h-px'
+      />
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
         <div className='grid md:grid-cols-3 gap-8 mb-8'>
           {/* Brand */}
@@ -63,7 +67,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className='text-muted-foreground hover:text-brand-text transition-colors duration-200'>
+                    className='inline-block text-muted-foreground hover:text-brand-text transition-[color,transform] duration-200 ease-standard motion-safe:hover:translate-x-1'>
                     {link.name}
                   </a>
                 </li>
@@ -84,7 +88,7 @@ const Footer = () => {
                       link.name !== "Email" ? "noopener noreferrer" : undefined
                     }
                     aria-label={link.name}
-                    className='block p-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
+                    className='block p-2 bg-muted rounded-lg transition-[color,background-color,transform,box-shadow] duration-200 ease-standard hover:bg-gradient-to-br hover:from-primary hover:to-violet hover:text-white hover:shadow-[0_10px_24px_-10px_hsl(var(--electric-blue)/0.8)] motion-safe:hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'>
                     {link.icon}
                   </a>
                 </li>

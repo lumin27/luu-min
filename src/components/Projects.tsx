@@ -140,16 +140,23 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Reveal
                 key={project.id}
+                variant='scale'
                 delay={(index % 3) * STAGGER_STEP_MS}
                 className='flex md:last:col-span-2 xl:last:col-span-1'>
-                <SpotlightSurface className='flex flex-col w-full'>
+                <SpotlightSurface className='group/card flex flex-col w-full'>
+                  <span
+                    aria-hidden='true'
+                    className='pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-primary to-violet transition-transform duration-slow ease-out-expo group-hover/card:scale-x-100 group-focus-within/card:scale-x-100'
+                  />
                   <CardHeader className='pb-4'>
                     <Badge
                       variant='outline'
                       className='w-fit mb-3 border-primary/40 text-brand-text'>
                       {project.category}
                     </Badge>
-                    <CardTitle className='text-2xl'>{project.title}</CardTitle>
+                    <CardTitle className='text-2xl transition-colors duration-base ease-standard group-hover/card:text-brand-text'>
+                      {project.title}
+                    </CardTitle>
                     <p className='text-base sm:text-lg text-brand-text font-medium'>
                       {project.subtitle}
                     </p>
@@ -163,7 +170,7 @@ const Projects = () => {
                       <h4 className='text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2'>
                         Key features
                       </h4>
-                      <ul className='space-y-1.5'>
+                      <ul className='list-stagger space-y-1.5'>
                         {project.features.map((feature) => (
                           <li
                             key={feature}
@@ -187,7 +194,7 @@ const Projects = () => {
 
                     <ul
                       aria-label={`${project.title} tech stack`}
-                      className='flex flex-wrap gap-2'>
+                      className='list-stagger flex flex-wrap gap-2'>
                       {project.tags.map((tag) => (
                         <li key={tag}>
                           <Badge variant='secondary' className='text-xs'>

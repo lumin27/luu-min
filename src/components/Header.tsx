@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, type MouseEvent } from "react";
+import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import {
@@ -28,12 +29,52 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const activeSection = useActiveSection(sectionIds);
+  const progressRef = useRef<HTMLSpanElement>(null);
+
+  // The new theme grows out of the toggle as a circle, where View Transitions are supported.
+  const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
+    const next = theme === "light" ? "dark" : "light";
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduced) {
+      setTheme(next);
+      return;
+    }
+    const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    const transition = document.startViewTransition(() => {
+      document.documentElement.classList.toggle("dark", next === "dark");
+      flushSync(() => setTheme(next));
+    });
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 650, easing: "cubic-bezier(0.16, 1, 0.3, 1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
+  };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    let raf = 0;
+    const updateProgress = () => {
+      raf = 0;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
+      progressRef.current?.style.setProperty("transform", `scaleX(${progress})`);
+    };
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      if (!raf) raf = requestAnimationFrame(updateProgress);
+    };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   return (
@@ -46,6 +87,14 @@ const Header = () => {
       <span
         aria-hidden='true'
         className={`header-line pointer-events-none absolute inset-x-0 bottom-0 h-px transition-opacity duration-base ease-standard ${
+          isScrolled ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <span
+        ref={progressRef}
+        aria-hidden='true'
+        style={{ transform: "scaleX(0)" }}
+        className={`pointer-events-none absolute left-0 bottom-0 h-0.5 w-full origin-left bg-gradient-to-r from-primary via-violet to-primary transition-opacity duration-base ease-standard ${
           isScrolled ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -72,7 +121,7 @@ const Header = () => {
                 {item.name}
                 <span
                   aria-hidden='true'
-                  className='absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-primary transition-transform duration-base ease-out-expo group-hover:scale-x-100 group-aria-[current=true]:scale-x-100'
+                  className='absolute -bottom-1.5 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-primary to-violet transition-transform duration-base ease-out-expo group-hover:scale-x-100 group-aria-[current=true]:scale-x-100'
                 />
               </a>
             ))}
@@ -83,7 +132,7 @@ const Header = () => {
             <Button
               variant='ghost'
               size='icon'
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              onClick={toggleTheme}
               className='hover:bg-primary/10 hover:text-brand-text'>
               <SunIcon className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
               <MoonIcon className='absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />

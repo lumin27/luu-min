@@ -16,8 +16,8 @@ type RevealProps = HTMLAttributes<HTMLElement> & {
   as?: "div" | "li" | "ul" | "ol" | "dl" | "article" | "figure";
   /** Reveal the single child element itself (e.g. a Card) instead of a wrapper. */
   asChild?: boolean;
-  /** `rise` (default) for content, `scale` for screenshots, `fade` for large blocks. */
-  variant?: "rise" | "fade" | "scale";
+  /** `rise` (default) for content, `scale` for screenshots, `fade` for large blocks, `left`/`right` to slide in from a side. */
+  variant?: "rise" | "fade" | "scale" | "left" | "right";
   /** Reveal the direct children one after another instead of the element itself. */
   stagger?: boolean;
   delay?: number;

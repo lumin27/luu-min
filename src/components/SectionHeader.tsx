@@ -13,12 +13,12 @@ const SectionHeader = ({ eyebrow, title, description }: SectionHeaderProps) => {
       <p className='text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-text mb-3'>
         {eyebrow}
       </p>
-      <h2 className='w-fit mx-auto text-4xl md:text-5xl font-bold tracking-tight mb-4 pb-1 bg-gradient-to-r from-foreground via-brand-text to-violet-text bg-clip-text text-transparent'>
+      <h2 className='title-shine w-fit mx-auto text-4xl md:text-5xl font-bold tracking-tight mb-4 pb-1'>
         {title}
       </h2>
       <div
         aria-hidden='true'
-        className='w-16 h-1 rounded-full bg-gradient-to-r from-primary to-violet mx-auto mb-6'
+        className='title-bar w-16 h-1 rounded-full bg-gradient-to-r from-primary to-violet mx-auto mb-6'
       />
       {description && (
         <p className='text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed'>

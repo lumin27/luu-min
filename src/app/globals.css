@@ -57,6 +57,8 @@
     --aurora-spot: 0.1;
     --section-glow-blue: 0.07;
     --section-glow-violet: 0.06;
+    --title-shine: hsl(var(--electric-blue-light));
+    --card-sheen: hsl(var(--electric-blue) / 0.08);
 
     /* Backdrop behind the cut-out hero portrait. */
     --portrait-bg: linear-gradient(180deg, hsl(210 40% 97%), hsl(215 28% 90%));
@@ -160,6 +162,8 @@
     --aurora-spot: 0.13;
     --section-glow-blue: 0.09;
     --section-glow-violet: 0.08;
+    --title-shine: hsl(0 0% 100% / 0.9);
+    --card-sheen: hsl(0 0% 100% / 0.06);
     --portrait-bg: radial-gradient(
         120% 70% at 50% 0%,
         hsl(var(--electric-blue) / 0.45),
@@ -209,6 +213,31 @@
 
   ::selection {
     background: hsl(var(--electric-blue) / 0.3);
+  }
+
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--brand-text) / 0.45) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid hsl(var(--background));
+    border-radius: 9999px;
+    background: linear-gradient(
+      hsl(var(--electric-blue) / 0.7),
+      hsl(var(--gradient-end) / 0.7)
+    );
+  }
+
+  /* Theme switch: Header grows the new theme out of the toggle as a circle. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -267,6 +296,56 @@
   }
   to {
     transform: translate3d(2%, 1.5%, 0) scale(1.06);
+  }
+}
+
+/* Brand gradient sliding through text; the gradient repeats, so 200% loops seamlessly. */
+@keyframes gradient-flow {
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes title-shine {
+  from {
+    background-position: 0% 0, 0 0;
+  }
+  to {
+    background-position: 100% 0, 0 0;
+  }
+}
+
+@keyframes title-bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes hero-scroll-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -60px, 0) scale(0.96);
+  }
+}
+
+@keyframes glow-drift {
+  from {
+    translate: 0 50px;
+  }
+  to {
+    translate: 0 -50px;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
   }
 }
 
@@ -336,6 +415,70 @@
     }
   }
 
+  /*
+   * Card hover motion: lift, a cursor-following 3D tilt (--rx/--ry set by
+   * CardTilt.tsx) and a one-pass sheen. Owns `transform`, so pair it with
+   * `glow-hover` rather than `lift-hover`.
+   */
+  .card-motion {
+    position: relative;
+    transform: perspective(1000px) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg)) translate3d(0, var(--lift, 0px), 0)
+      scale(var(--press, 1));
+    transition:
+      transform 500ms var(--ease-out-expo),
+      box-shadow var(--dur-base) var(--ease-standard),
+      border-color var(--dur-base) var(--ease-standard),
+      background-color var(--dur-base) var(--ease-standard);
+  }
+
+  .card-motion::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+        115deg,
+        transparent 38%,
+        var(--card-sheen) 50%,
+        transparent 62%
+      )
+      130% 0 / 250% 100% no-repeat;
+    opacity: 0;
+    transition:
+      background-position 0s linear var(--dur-base),
+      opacity var(--dur-base) var(--ease-standard);
+  }
+
+  .card-motion:focus-within {
+    --lift: -6px;
+    --card-hover-shadow: 0 24px 48px -24px hsl(var(--electric-blue) / 0.55),
+      var(--shadow-card);
+  }
+
+  @media (hover: hover) {
+    .card-motion:hover {
+      --lift: -6px;
+      --card-hover-shadow: 0 24px 48px -24px hsl(var(--electric-blue) / 0.55),
+        var(--shadow-card);
+      will-change: transform;
+    }
+
+    .card-motion:active {
+      --press: 0.985;
+    }
+
+    .card-motion:hover::before {
+      opacity: 1;
+      background-position: -30% 0;
+      transition:
+        background-position 1s var(--ease-out-expo),
+        opacity var(--dur-fast) var(--ease-standard);
+    }
+  }
+
   /* Featured project shell (FeaturedProject.tsx): a stronger glow on hover/focus. */
   .featured-shell {
     position: relative;
@@ -388,6 +531,24 @@
         animation-timeline: view();
         animation-range: cover 0% cover 100%;
       }
+
+      /* Hero content lifts and fades away as the hero scrolls out of view. */
+      .hero-timeline {
+        view-timeline-name: --hero;
+      }
+
+      .hero-scroll-out {
+        animation: hero-scroll-out linear both;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 75%;
+      }
+
+      /* Section background glows drift slower than the content for depth. */
+      .section-glow::before {
+        animation: glow-drift linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
     }
   }
 
@@ -406,6 +567,21 @@
 
   [data-reveal="fade"] {
     --reveal-from: none;
+  }
+
+  [data-reveal="left"] {
+    --reveal-from: translate3d(calc(var(--reveal-distance) * -2), 0, 0);
+  }
+
+  [data-reveal="right"] {
+    --reveal-from: translate3d(calc(var(--reveal-distance) * 2), 0, 0);
+  }
+
+  /* On phones every timeline card sits right of the line, so all enter from the right. */
+  @media (max-width: 767px) {
+    [data-reveal="left"] {
+      --reveal-from: translate3d(calc(var(--reveal-distance) * 2), 0, 0);
+    }
   }
 
   [data-reveal="scale"] {
@@ -481,6 +657,20 @@
       ellipse 70% 60% at 50% 45%,
       #000 25%,
       transparent 75%
+    );
+  }
+
+  /* Interactive desktop dot field (DotGrid canvas), faded toward the hero edges. */
+  .hero-dots {
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 70% at 50% 45%,
+      #000 30%,
+      transparent 85%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 70% at 50% 45%,
+      #000 30%,
+      transparent 85%
     );
   }
 
@@ -578,6 +768,170 @@
       );
   }
 
+  /* Hero name: the brand gradient slowly flows through the text (Hero pauses it off screen). */
+  .text-gradient-flow {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--foreground)),
+      hsl(var(--brand-text)),
+      hsl(var(--violet-text)),
+      hsl(var(--brand-text)),
+      hsl(var(--foreground))
+    );
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-flow 14s linear infinite;
+  }
+
+  [data-paused] .text-gradient-flow {
+    animation-play-state: paused;
+  }
+
+  /* Section titles: brand gradient plus one light sweep when the header is revealed. */
+  .title-shine {
+    background-image:
+      linear-gradient(
+        110deg,
+        transparent 40%,
+        var(--title-shine) 50%,
+        transparent 60%
+      ),
+      linear-gradient(
+        to right,
+        hsl(var(--foreground)),
+        hsl(var(--brand-text)),
+        hsl(var(--violet-text))
+      );
+    background-size: 250% 100%, 100% 100%;
+    background-position: 0% 0, 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .motion-ready [data-revealed] .title-shine {
+    animation: title-shine 1.6s var(--ease-standard) 300ms both;
+  }
+
+  .motion-ready [data-revealed] .title-bar {
+    animation: title-bar-grow 900ms var(--ease-out-expo) 200ms both;
+  }
+
+  /* A blue-violet light travelling around a card's border. */
+  .border-flow {
+    position: relative;
+  }
+
+  .border-flow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0deg,
+      hsl(var(--electric-blue)) 70deg,
+      hsl(var(--gradient-end)) 140deg,
+      transparent 200deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: border-spin 6s linear infinite;
+  }
+
+  /* Hover-only variant: the light appears and travels while the card is hovered or focused. */
+  .border-flow-hover::before {
+    opacity: 0;
+    animation-play-state: paused;
+    transition: opacity var(--dur-slow) var(--ease-standard);
+  }
+
+  .border-flow-hover:focus-within::before {
+    opacity: 1;
+    animation-play-state: running;
+  }
+
+  @media (hover: hover) {
+    .border-flow-hover:hover::before {
+      opacity: 1;
+      animation-play-state: running;
+    }
+  }
+
+  /*
+   * List items and tags pop in one after another once their revealed ancestor
+   * enters the viewport (items 9+ share the last delay).
+   */
+  .motion-ready [data-revealed] .list-stagger > * {
+    --reveal-from: translate3d(0, 8px, 0) scale(0.96);
+    animation: reveal-in var(--dur-slow) var(--ease-out-expo) backwards;
+    animation-delay: calc(180ms + var(--item, 0) * 45ms);
+  }
+
+  .list-stagger > :nth-child(2) { --item: 1; }
+  .list-stagger > :nth-child(3) { --item: 2; }
+  .list-stagger > :nth-child(4) { --item: 3; }
+  .list-stagger > :nth-child(5) { --item: 4; }
+  .list-stagger > :nth-child(6) { --item: 5; }
+  .list-stagger > :nth-child(7) { --item: 6; }
+  .list-stagger > :nth-child(8) { --item: 7; }
+  .list-stagger > :nth-child(n + 9) { --item: 8; }
+
+  .border-flow:focus-within {
+    box-shadow: 0 30px 80px -40px hsl(var(--electric-blue) / 0.7);
+  }
+
+  /* Primary buttons: a light streak crosses the button on hover. */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      hsl(0 0% 100% / 0.35) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+  }
+
+  @media (hover: hover) {
+    .btn-shine:hover::after {
+      transform: translateX(120%);
+      transition: transform 700ms var(--ease-standard);
+    }
+  }
+
+  /* Footer top edge: the brand gradient flowing along a hairline. */
+  .footer-line {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--electric-blue)),
+      hsl(var(--gradient-end)),
+      hsl(var(--electric-blue))
+    );
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+    animation: gradient-flow 8s linear infinite;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  }
+
   /* Hairline under the scrolled header. */
   .header-line {
     background: linear-gradient(
@@ -603,7 +957,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .motion-ready [data-reveal]:not([data-reveal-stagger]),
-    .motion-ready [data-reveal-stagger] > * {
+    .motion-ready [data-reveal-stagger] > *,
+    .motion-ready .list-stagger > * {
       opacity: 1 !important;
       transform: none !important;
       animation: none !important;
@@ -611,8 +966,13 @@
 
     .lift-hover:hover,
     .lift-hover:focus-within,
+    .card-motion,
     .media-group .media-zoom {
       transform: none !important;
+    }
+
+    .card-motion::before {
+      display: none;
     }
 
     .ambient-drift {

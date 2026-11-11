@@ -11,6 +11,7 @@ import {
   LinkedInLogoIcon,
   EnvelopeClosedIcon,
   CheckCircledIcon,
+  DownloadIcon,
 } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
 import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
@@ -65,7 +66,8 @@ const Contact = () => {
       console.error(error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again later.",
+        description:
+          "Your message couldn't be sent. Please try again, or email me directly at linnmu2030@gmail.com.",
         variant: "destructive",
       });
     } finally {
@@ -91,6 +93,12 @@ const Contact = () => {
       href: "https://github.com/lumin27",
       icon: <GitHubLogoIcon className='h-6 w-6' />,
       description: "Check out my code",
+    },
+    {
+      name: "CV",
+      href: "/Luu_Min_CV.pdf",
+      icon: <DownloadIcon className='h-6 w-6' />,
+      description: "Download my CV (PDF)",
     },
   ];
 
@@ -120,7 +128,7 @@ const Contact = () => {
           <div className='grid lg:grid-cols-2 gap-8 lg:gap-12'>
             {/* Contact Form */}
             <Reveal>
-              <Card className='glass-card h-full flex flex-col'>
+              <Card className='glass-card border-flow h-full flex flex-col transition-shadow duration-slow ease-standard'>
                 <CardHeader>
                   <CardTitle className='text-2xl'>Send me a message</CardTitle>
                 </CardHeader>
@@ -133,6 +141,8 @@ const Contact = () => {
                         name='name'
                         type='text'
                         placeholder='Your name'
+                        autoComplete='name'
+                        maxLength={100}
                         value={formData.name}
                         onChange={handleInputChange}
                         required
@@ -147,6 +157,8 @@ const Contact = () => {
                         name='email'
                         type='email'
                         placeholder='your.email@example.com'
+                        autoComplete='email'
+                        maxLength={200}
                         value={formData.email}
                         onChange={handleInputChange}
                         required
@@ -162,6 +174,7 @@ const Contact = () => {
                         name='message'
                         placeholder='Tell me about your project, team, or idea...'
                         rows={5}
+                        maxLength={5000}
                         value={formData.message}
                         onChange={handleInputChange}
                         required
@@ -182,7 +195,7 @@ const Contact = () => {
 
             {/* Contact Info & Social Links */}
             <Reveal delay={STAGGER_STEP_MS} className='space-y-8'>
-              <Card className='glass-card'>
+              <Card className='glass-card glow-hover card-motion' data-tilt='0'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-2xl font-semibold mb-4'>Let&apos;s Connect</h3>
                   <p className='text-muted-foreground leading-relaxed mb-6'>
@@ -196,6 +209,7 @@ const Contact = () => {
                       <SpotlightSurface
                         key={link.name}
                         className='rounded-lg'
+                        data-tilt='2'
                         style={
                           {
                             "--spotlight-card-surface": "hsl(var(--muted) / 0.5)",
@@ -204,14 +218,17 @@ const Contact = () => {
                         }>
                         <a
                           href={link.href}
-                          target={link.name !== "Email" ? "_blank" : undefined}
+                          download={link.name === "CV" || undefined}
+                          target={link.href.startsWith("https://") ? "_blank" : undefined}
                           rel={
-                            link.name !== "Email"
+                            link.href.startsWith("https://")
                               ? "noopener noreferrer"
                               : undefined
                           }
-                          className='flex items-center gap-4 p-4 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'>
-                          <div className='text-brand-text'>{link.icon}</div>
+                          className='group flex items-center gap-4 p-4 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'>
+                          <div className='text-brand-text transition-transform duration-base ease-out-expo group-hover:scale-110 group-hover:-rotate-6 group-focus-visible:scale-110'>
+                            {link.icon}
+                          </div>
                           <div className='min-w-0'>
                             <p className='font-medium'>{link.name}</p>
                             <p className='text-sm text-muted-foreground break-all'>
@@ -226,10 +243,10 @@ const Contact = () => {
               </Card>
 
               {/* Quick Info */}
-              <Card className='glass-card'>
+              <Card className='glass-card glow-hover card-motion' data-tilt='2'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-xl font-semibold mb-4'>Quick Info</h3>
-                  <ul className='space-y-3 text-muted-foreground'>
+                  <ul className='list-stagger space-y-3 text-muted-foreground'>
                     {quickInfo.map((item) => (
                       <li key={item} className='flex items-center gap-3'>
                         <CheckCircledIcon

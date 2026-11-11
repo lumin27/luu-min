@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://lumin27.com/sitemap.xml
+Sitemap: https://luu-min.vercel.app/sitemap.xml
