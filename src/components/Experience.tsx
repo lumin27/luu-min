@@ -44,90 +44,47 @@ const Experience = () => {
     };
   }, []);
 
+  // Oldest first; the stacks are listed once, on the project cards.
   const timeline = [
     {
-      id: 2,
-      title: "BlogSphere Platform",
-      company: "Personal Project",
-      period: "2025",
-      type: "project",
+      id: 1,
+      title: "Started teaching myself",
+      company: "Self-taught",
+      period: "2022",
+      type: "learning",
       description:
-        "Developed a modern blog platform with dynamic post creation, user interactions, and optimized performance using Next.js and PostgreSQL.",
-      technologies: [
-        "Next.js",
-        "Material UI",
-        "Prisma",
-        "PostgreSQL",
-        "Cloudinary",
-        "TypeScript",
-        "NextAuth",
-      ],
-      icon: <CodeIcon className='h-5 w-5' />,
+        "Learned React, Next.js, and TypeScript by building projects end to end instead of stopping at tutorials.",
+      icon: <CalendarIcon className='h-5 w-5' />,
     },
     {
-      id: 3,
-      title: "Foodie-POS System",
-      company: "SaaS Project",
-      period: "2024 – Present",
+      id: 2,
+      title: "Foodie-POS",
+      company: "Personal project",
+      period: "2024",
       type: "project",
       description:
-        "Restaurant ordering, order tracking, and payment recording.",
-      technologies: [
-        "Next.js",
-        "Material UI",
-        "Prisma",
-        "PostgreSQL",
-        "Zod",
-        "Vercel Blob Storage",
-        "NextAuth",
-        "TypeScript",
-      ],
+        "QR-code ordering for restaurant customers, with order tracking and payment recording for staff.",
       icon: <RocketIcon className='h-5 w-5' />,
     },
     {
-      id: 4,
-      title: "Marketplace App",
-      company: "Personal Project",
-      period: "2025 – 2026",
+      id: 3,
+      title: "BlogSphere",
+      company: "Personal project",
+      period: "2025",
       type: "project",
       description:
-        "Built a modern buy-and-sell marketplace with Next.js, Prisma, and PostgreSQL. Features real-time listings, categories, search, user interactions, and seamless transaction management.",
-      technologies: [
-        "Next.js",
-        "React.js",
-        "TailwindCSS",
-        "TypeScript",
-        "Prisma",
-        "PostgreSQL",
-        "Cloudinary",
-        "Supabase Auth",
-        "Server Actions",
-      ],
+        "A blogging platform with role-based access, image uploads, reactions, and comments.",
       icon: <CodeIcon className='h-5 w-5' />,
     },
     {
-      id: 5,
-      title: "Full Stack Development Journey",
-      company: "Self-taught Developer",
-      period: "2022 – Present",
-      type: "learning",
+      id: 4,
+      title: "Marketplace",
+      company: "Personal project",
+      period: "2025 – 2026",
+      type: "project",
       description:
-        "Intensive self-study and hands-on practice with modern web technologies, focusing on React ecosystem and full-stack development.",
-      technologies: [
-        "React.js",
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "APIs",
-        "Git",
-        "TailwindCSS",
-        "Material-UI",
-        "Cloudinary",
-        "Server Actions",
-        "Prisma",
-        "PostgreSQL",
-      ],
-      icon: <CalendarIcon className='h-5 w-5' />,
+        "A buy-and-sell platform with listings, search, favorites, buyer-seller messaging, and a seller dashboard.",
+      icon: <CodeIcon className='h-5 w-5' />,
     },
   ];
 
@@ -150,7 +107,7 @@ const Experience = () => {
 
           <Reveal>
             <h3 className='text-2xl font-semibold text-center mt-16 md:mt-20 mb-10'>
-              Earlier projects
+              My journey
             </h3>
           </Reveal>
 
@@ -207,21 +164,9 @@ const Experience = () => {
                         </div>
 
                         {/* Description */}
-                        <p className='text-muted-foreground mb-4 leading-relaxed'>
+                        <p className='text-muted-foreground leading-relaxed'>
                           {item.description}
                         </p>
-
-                        {/* Technologies */}
-                        <div className='flex flex-wrap gap-2'>
-                          {item.technologies.map((tech) => (
-                            <Badge
-                              key={tech}
-                              variant='outline'
-                              className='text-xs'>
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
                       </CardContent>
                     </Card>
                   </div>

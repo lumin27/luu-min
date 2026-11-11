@@ -20,7 +20,6 @@ const navItems = [
   { name: "About", id: "about" },
   { name: "Projects", id: "projects" },
   { name: "Experience", id: "experience" },
-  { name: "Services", id: "services" },
   { name: "Contact", id: "contact" },
 ];
 const sectionIds = navItems.map((item) => item.id);

@@ -4,15 +4,24 @@ import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import CountUp from "@/components/reactbits/CountUp";
 import ScrollReveal from "@/components/reactbits/ScrollReveal";
 
-const stats = [
+type Stat = {
+  to: number;
+  suffix?: string;
+  /** A year reads wrong while counting, so it is shown as-is. */
+  count?: boolean;
+  label: string;
+  detail: string;
+};
+
+const stats: Stat[] = [
   {
     to: 4,
-    label: "Live products",
-    detail: "Schoolyn, Foodie-POS, Marketplace and BlogSphere",
+    label: "Deployed projects",
+    detail: "Schoolyn in production, plus Foodie-POS, Marketplace and BlogSphere",
   },
   {
     to: 2022,
-    from: 2012,
+    count: false,
     label: "Building since",
     detail: "Self-taught, learning by shipping real apps",
   },
@@ -32,6 +41,7 @@ const Statement = () => {
       <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
         <ScrollReveal
           className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] text-foreground text-balance'
+          baseOpacity={0.4}
           highlight={["real", "problems", "live", "software"]}
           highlightClassName='bg-gradient-to-r from-brand-text to-violet-text bg-clip-text text-transparent'>
           I don&apos;t stop at tutorials. I take real problems — school fees,
@@ -52,7 +62,11 @@ const Statement = () => {
                 </span>
               </dt>
               <dd className='mb-3 text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground via-brand-text to-violet-text bg-clip-text text-transparent'>
-                <CountUp to={stat.to} from={stat.from} suffix={stat.suffix} />
+                {stat.count === false ? (
+                  stat.to
+                ) : (
+                  <CountUp to={stat.to} suffix={stat.suffix} />
+                )}
               </dd>
             </Reveal>
           ))}

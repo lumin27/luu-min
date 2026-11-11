@@ -9,7 +9,7 @@ const rows = [
     direction: -1,
   },
   {
-    items: ["Open to work", "Remote friendly", "Full-time & freelance", "Let's build something useful"],
+    items: ["Multi-school SaaS", "Tenant isolation", "Role-based access", "Payments & invoicing", "Push notifications", "Mobile API"],
     className: "text-muted-foreground",
     direction: 1,
   },

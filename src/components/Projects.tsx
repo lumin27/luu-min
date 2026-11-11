@@ -34,7 +34,7 @@ const projects: Project[] = [
     id: 1,
     title: "Foodie-POS",
     subtitle: "Point of Sale System for Restaurants",
-    category: "Business software · SaaS",
+    category: "Web app · Restaurant POS",
     summary:
       "A POS system that lets restaurant customers order by scanning a QR code, while the restaurant manages incoming orders in one place.",
     features: [

@@ -18,7 +18,6 @@ import Reveal, { STAGGER_STEP_MS } from "@/components/Reveal";
 import CountUp from "@/components/reactbits/CountUp";
 
 const codebaseStats = [
-  { value: 270, suffix: "+", label: "commits" },
   { value: 97, label: "database models" },
   { value: 120, suffix: "+", label: "Prisma migrations" },
   { value: 370, suffix: "+", label: "automated test files" },
@@ -162,7 +161,7 @@ const SchoolynExperience = () => {
         <Reveal
           as='dl'
           stagger
-          className='grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10'>
+          className='grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10'>
           {codebaseStats.map((stat) => (
             <div
               key={stat.label}

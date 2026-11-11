@@ -103,10 +103,9 @@ const Contact = () => {
   ];
 
   const quickInfo = [
-    "Open to startup collaboration",
+    "Open to full-time roles",
     "Available for remote work",
-    "Open to full-time & freelance",
-    "Quick to respond",
+    "Comfortable owning features end to end",
   ];
 
   return (
@@ -118,9 +117,9 @@ const Contact = () => {
             title="Let's Work Together"
             description={
               <>
-                I&apos;m open to collaborating with startups and small teams on
-                practical software. If you&apos;re building something useful,
-                I&apos;d like to hear about it.
+                I&apos;m looking for a full-time role on a team that builds
+                practical software. If you&apos;re hiring, I&apos;d like to
+                hear from you.
               </>
             }
           />
@@ -199,9 +198,8 @@ const Contact = () => {
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-2xl font-semibold mb-4'>Let&apos;s Connect</h3>
                   <p className='text-muted-foreground leading-relaxed mb-6'>
-                    Have a project in mind, need an extra developer on a small
-                    team, or just want to talk about building software with AI
-                    tools? Email is the quickest way to reach me.
+                    Have a role I might fit, or want to talk about my work?
+                    Email is the quickest way to reach me.
                   </p>
 
                   <div className='space-y-3'>

@@ -11,7 +11,6 @@ const quickLinks = [
   { name: "About", href: "#about" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
-  { name: "Services", href: "#services" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -54,8 +53,8 @@ const Footer = () => {
             </div>
 
             <p className='text-muted-foreground'>
-              Full-Stack Developer & Product Builder. I build practical
-              software products and I&apos;m exploring AI-assisted development.
+              I build practical web and mobile software, from a multi-school
+              SaaS platform to restaurant ordering.
             </p>
           </div>
 
@@ -95,7 +94,7 @@ const Footer = () => {
               ))}
             </ul>
             <p className='text-sm text-muted-foreground'>
-              Open to collaborating on useful software &mdash; let&apos;s talk.
+              Open to full-time roles &mdash; let&apos;s talk.
             </p>
           </div>
         </div>

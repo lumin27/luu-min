@@ -20,7 +20,7 @@ import {
 const lines = [
   "Full-Stack Developer & Product Builder",
   "Building Practical Web Apps",
-  "Exploring AI-Assisted Development",
+  "Shipping Multi-School SaaS",
 ];
 
 const socialLinks = [
@@ -42,7 +42,7 @@ const socialLinks = [
 ];
 
 // Long lines can't fit on one line on phones; break at a chosen point so no word is orphaned.
-const phoneBreaks = ["& ", "AI-Assisted "];
+const phoneBreaks = ["& "];
 
 const entrance = (delay: number) => ({ animationDelay: `${delay}ms` });
 
@@ -176,9 +176,8 @@ const Hero = () => {
               <p
                 style={entrance(250)}
                 className='text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed text-pretty motion-safe:animate-fade-up'>
-                I&apos;m exploring how AI coding tools can help me ship and
-                iterate faster, and I&apos;d love to help early-stage teams turn
-                ideas into useful software.
+                I&apos;m looking for a team where I can help turn ideas into
+                useful, well-built software.
               </p>
 
               <div

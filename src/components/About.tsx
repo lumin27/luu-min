@@ -7,12 +7,9 @@ import SectionHeader from "@/components/SectionHeader";
 import LogoLoop, { type LogoItem } from "@/components/reactbits/LogoLoop";
 import {
   CheckCircledIcon,
-  ClockIcon,
   LockClosedIcon,
 } from "@radix-ui/react-icons";
 import {
-  SiHtml5,
-  SiCss3,
   SiJavascript,
   SiBootstrap,
   SiNodedotjs,
@@ -50,8 +47,6 @@ const skillGroups: SkillGroup[] = [
   {
     title: "Frontend",
     skills: [
-      { name: "HTML", icon: <SiHtml5 className='text-orange-500' /> },
-      { name: "CSS", icon: <SiCss3 className='text-blue-500' /> },
       {
         name: "JavaScript",
         icon: <SiJavascript className='text-yellow-500' />,
@@ -119,7 +114,6 @@ const skillGroups: SkillGroup[] = [
         name: "Vercel",
         icon: <SiVercel className='text-black dark:text-white' />,
       },
-      { name: "Cron jobs", icon: <ClockIcon className='text-brand-text' /> },
     ],
     familiar: ["Docker", "Neon (serverless Postgres)"],
   },
@@ -209,7 +203,7 @@ const About = () => {
               <Card className='glass-card glow-hover card-motion' data-tilt='1.5'>
                 <CardContent className='p-6 sm:p-8'>
                   <h3 className='text-2xl font-semibold mb-4 text-brand-text'>
-                    Full-Stack Developer & Product Builder
+                    My story
                   </h3>
                   <div className='space-y-4 text-muted-foreground leading-relaxed'>
                     <p>
@@ -235,10 +229,9 @@ const About = () => {
                       on a real, growing codebase.
                     </p>
                     <p>
-                      Lately I&apos;ve been exploring AI-assisted development.
-                      I&apos;m looking to collaborate with an early-stage team
-                      where I can contribute, learn quickly, and help build
-                      software that people actually use.
+                      I&apos;m looking to join a team where I can contribute,
+                      learn quickly, and help build software that people
+                      actually use.
                     </p>
                   </div>
                 </CardContent>
